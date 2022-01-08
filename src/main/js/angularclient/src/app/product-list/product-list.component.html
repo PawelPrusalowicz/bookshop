@@ -1,0 +1,32 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Tytuł</th>
+          <th scope="col">Autor</th>
+          <th scope="col">Krótki opis</th>
+          <th scope="col">Długi opis</th>
+          <th scope="col">Cena</th>
+          <th scope="col">Data wydania</th>
+          <th scope="col">Dostępna liczba sztuk</th>
+          <th scope="col">Dodaj do koszyka</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.title }}</td>
+          <td>{{ product.author }}</td>
+          <td>{{ product.shortDescription }}</td>
+          <td>{{ product.longDescription }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.establishmentDate }}</td>
+          <td>{{ product.availableQuantity }}</td>
+          <td><button>Do koszyka</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
