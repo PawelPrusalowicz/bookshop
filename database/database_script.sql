@@ -1,4 +1,6 @@
 ﻿/*
+Created: 2022-01-11
+Modified: 2022-01-11
 Model: PostgreSQL 12
 Database: PostgreSQL 12
 */
@@ -9,22 +11,22 @@ Database: PostgreSQL 12
 
 CREATE TABLE Publishers
 (
-  publisher_id serial NOT NULL,
+  publisher_id Integer NOT NULL,
   name Character varying(40) NOT NULL,
   short_description Character varying(1000) NOT NULL,
   long_description Text,
   establishment_date Timestamp NOT NULL
-);
+)
 
 
-ALTER TABLE Publishers ADD CONSTRAINT publishers_pk PRIMARY KEY (publisher_id)
+ALTER TABLE Publishers ADD CONSTRAINT Unique_Identifier2 PRIMARY KEY (publisher_id)
 ;
 
 -- Table Products
 
 CREATE TABLE Products
 (
-  product_id serial NOT NULL,
+  product_id Integer NOT NULL,
   title Character varying(80) NOT NULL,
   short_description Character varying(1000),
   long_description Text,
@@ -35,13 +37,10 @@ CREATE TABLE Products
 );
 
 
-CREATE INDEX idx_products_publisher_id ON Products (publisher_id)
+CREATE INDEX IX_are_published_by ON Products (publisher_id)
 ;
 
-CREATE INDEX idx_products_title ON Products (title)
-;
-
-ALTER TABLE Products ADD CONSTRAINT products_pk PRIMARY KEY (product_id)
+ALTER TABLE Products ADD CONSTRAINT Unique_Identifier3 PRIMARY KEY (product_id)
 ;
 
 -- Table Order_Positions
@@ -51,9 +50,9 @@ CREATE TABLE Order_Positions
   order_position_id Integer NOT NULL,
   quantity Integer NOT NULL,
   product_id Integer NOT NULL,
-  cart_id Integer,
+  cart_id Integer NOT NULL,
   client_id Integer,
-  order_id Integer
+  order_id Integer NOT NULL
 );
 
 
@@ -75,7 +74,7 @@ CREATE TABLE Carts
 (
   cart_id Integer NOT NULL,
   creation_date Timestamp NOT NULL,
-  client_id Integer
+  client_id Integer NOT NULL
 );
 
 
@@ -93,8 +92,8 @@ CREATE TABLE Clients
   nip Character varying(12),
   phone_number Character(15) NOT NULL,
   email Character varying(40) NOT NULL,
-  loyalty_card boolean NOT NULL,
-  newsletter_agreement boolean NOT NULL
+  loyalty_card Character(1) NOT NULL,
+  newsletter_agreement Character(1) NOT NULL
 );
 
 

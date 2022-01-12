@@ -39,6 +39,16 @@ export class ProductListComponent implements OnInit {
 
   }
 
+  searchProducts() {
+      let searchParam = (<HTMLInputElement>document.getElementById("search")).value;
+      if (searchParam) {
+        this.productService.search(searchParam).subscribe(data => {
+        this.products = data;
+
+        });
+      }
+  }
+
   addToCart(product: Product) {
       for (let orderPos of this.cart.orderPositions) {
           if (orderPos.product.product_id == product.product_id) {

@@ -1,8 +1,6 @@
 package application.controllers;
 
-import application.entities.Client;
 import application.entities.Product;
-import application.repositories.ClientRepository;
 import application.repositories.ProductRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,17 +11,29 @@ import java.util.List;
 public class ProductController {
 
     private final ProductRepository productRepository;
-    private final ClientRepository clientRepository;
 
-    public ProductController(ProductRepository productRepository, ClientRepository clientRepository) {
+    public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.clientRepository = clientRepository;
     }
 
     @GetMapping("/products")
     public List<Product> getProducts() {
-        List<Client> clients = (List<Client>) clientRepository.findAll();
+        List<Product> p = (List<Product>) productRepository.findProductsBySearchParam("Harry Potter i Kamień Filozoficzny");
+
         return (List<Product>) productRepository.findAll();
+    }
+
+
+    @GetMapping("/products/{searchParam}")
+    public List<Product> searchProducts(@PathVariable String searchParam) {
+
+        return (List<Product>) productRepository.findProductsBySearchParam(searchParam);
+    }
+
+    @PostMapping("/products/search")
+    public List<Product> searchProductsByParam(@RequestBody String searchParam) {
+
+        return (List<Product>) productRepository.findProductsBySearchParam(searchParam);
     }
 
     @PostMapping("/products")

@@ -1,6 +1,5 @@
 package application.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
 
 @Entity
 @Table(name = "genres")
@@ -29,9 +26,5 @@ public class Genre {
     private int genre_id;
     private String name;
     private String description;
-
-    @OneToMany(mappedBy="genre")
-    @JsonManagedReference(value="genre-genreproducts")
-    private List<GenreProduct> genresProducts;
 
 }

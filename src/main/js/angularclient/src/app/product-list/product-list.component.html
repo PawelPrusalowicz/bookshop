@@ -18,14 +18,27 @@
   </div>
 </div>
 
+
+
+
 <div class="card my-5" style="display: inline-block !important;">
-
-
   <div class="card-body" style="display: inline-block !important;">
+
+    <div class="search-container">
+      <form>
+        <input ng-model="searchText" type="text" placeholder="Wyszukaj tytuł lub autora" id="search">
+        <button (click)="searchProducts()">Wyszukaj</button>
+      </form>
+    </div>
+
+  <hr>
+
     <table class="table table-bordered table-striped" style="display: inline-block !important;">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Tytuł</th>
+          <th scope="col">Autorzy</th>
+          <th scope="col">Gatunek</th>
           <th scope="col">Krótki opis</th>
           <th scope="col">Długi opis</th>
           <th scope="col">Cena</th>
@@ -38,6 +51,16 @@
       <tbody>
         <tr *ngFor="let product of products">
           <td>{{ product.title }}</td>
+          <td>
+              <ul *ngFor="let author of product.authors">
+                <li>{{author.firstName}} {{author.lastName}}</li>
+              </ul>
+          </td>
+          <td>
+            <ul *ngFor="let genre of product.genres">
+              <li>{{genre.name}}</li>
+            </ul>
+          </td>
           <td>{{ product.shortDescription }}</td>
           <td>{{ product.longDescription }}</td>
           <td>{{ product.price }}</td>

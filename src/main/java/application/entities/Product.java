@@ -1,18 +1,20 @@
 package application.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.sql.Date;
@@ -42,12 +44,20 @@ public class Product {
     private List<OrderPosition> orderPositions;
 
 
-    @OneToMany(mappedBy="product")
-    @JsonManagedReference(value="product-authorproducts")
-    private List<AuthorProduct> authorsProducts;
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "authors_products",
+            joinColumns = { @JoinColumn(name = "product_id") },
+            inverseJoinColumns = { @JoinColumn(name = "author_id") }
+    )
+    private List<Author> authors;
 
-    @OneToMany(mappedBy="product")
-    @JsonManagedReference(value="product-genreproducts")
-    private List<GenreProduct> genresProducts;
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "genres_products",
+            joinColumns = { @JoinColumn(name = "product_id") },
+            inverseJoinColumns = { @JoinColumn(name = "genre_id") }
+    )
+    private List<Genre> genres;
 
 }
