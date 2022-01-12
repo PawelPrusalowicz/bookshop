@@ -3,11 +3,12 @@ package application.entities;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+@Table(name = "products")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,6 +17,8 @@ import java.sql.Date;
 public class Product {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="product_id")
     private int id;
     private String title;
     private String shortDescription;
@@ -23,6 +26,5 @@ public class Product {
     private double price;
     private int availableQuantity;
     private Date establishmentDate;
-    private String author;
 
 }

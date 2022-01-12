@@ -36,8 +36,8 @@
         <input type="text" [(ngModel)]="client.email" class="form-control" id="email" name="email" placeholder="Enter your email address"
           required #email="ngModel">
       </div>
-      <div [hidden]="!email.pristine" class="alert alert-danger">Email jest wymagany</div>
-      <!--<button type="submit" [disabled]="!clientForm.form.valid" class="btn btn-info">Zapisz</button>-->
+      <!--<div [hidden]="!email.pristine" class="alert alert-danger">Email jest wymagany</div>-->
+      <button type="submit" [disabled]="!clientForm.form.valid" class="btn btn-info">Zapisz</button>
     </form>
   </div>
 </div>

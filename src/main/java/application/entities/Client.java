@@ -5,8 +5,10 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "clients")
 @Getter
 @Setter
 @AllArgsConstructor

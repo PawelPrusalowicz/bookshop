@@ -6,5 +6,4 @@ export class Product {
     price: number;
     availableQuantity: bigint;
     establishmentDate: Date;
-    author: string;
 }
