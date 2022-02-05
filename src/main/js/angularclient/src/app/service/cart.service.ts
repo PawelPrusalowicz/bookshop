@@ -17,7 +17,6 @@ export class CartService {
   }
 
   public save(cart: Cart) {
-    console.log("ok");
     return this.http.post<Cart>(this.cartsUrl, cart).subscribe((data) => { console.log(data); }, (error) => { console.error(error); });
 
   }

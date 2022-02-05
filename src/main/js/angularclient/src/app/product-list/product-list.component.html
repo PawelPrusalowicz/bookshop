@@ -6,12 +6,12 @@
     <div style="display: inline-block !important;">
       <ul style="display: inline-block !important;">
         <li *ngFor="let order of cart.orderPositions">
-          {{ order.product.title }} - {{ order.quantity}} szt.
+          {{ order.product.title }} - {{ order.quantity}} szt. * {{ order.product.price}} zł
         </li>
       </ul>
     </div>
-
-    <label style="display: inline-block !important;">Razem: {{total}} zł</label>
+    <br>
+    <label>Razem: {{total}} zł</label>
     <button class="btn btn-light btn-block" (click)="makeOrder()" style="display: inline-block !important;"
     [disabled]="cart.orderPositions.length == 0">Złóż zamówienie
     </button>
@@ -63,7 +63,7 @@
           </td>
           <td>{{ product.shortDescription }}</td>
           <td>{{ product.longDescription }}</td>
-          <td>{{ product.price }}</td>
+          <td>{{ product.price }} zł</td>
           <td>{{ product.establishmentDate }}</td>
           <td>{{ product.availableQuantity }}</td>
           <td><button (click)="addToCart(product)">Do koszyka</button></td>

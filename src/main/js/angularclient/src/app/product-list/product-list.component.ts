@@ -52,8 +52,10 @@ export class ProductListComponent implements OnInit {
   addToCart(product: Product) {
       for (let orderPos of this.cart.orderPositions) {
           if (orderPos.product.product_id == product.product_id) {
-              globalThis.age = 3;
-              orderPos.quantity += globalThis.age;
+              orderPos.quantity += 1;
+              for (let orderPos of this.cart.orderPositions) {
+                this.total += orderPos.quantity * orderPos.product.price;
+              }
               return;
           }
       }
@@ -62,8 +64,12 @@ export class ProductListComponent implements OnInit {
       orderPosition.product = product;
       orderPosition.quantity = 1;
 
-
       this.cart.orderPositions.push(orderPosition);
+
+      this.total = 0;
+      for (let orderPos of this.cart.orderPositions) {
+        this.total += orderPos.quantity * orderPos.product.price;
+      }
   }
 
   makeOrder() {

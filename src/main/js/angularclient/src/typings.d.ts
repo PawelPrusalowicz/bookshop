@@ -4,5 +4,3 @@ interface NodeModule {
   id: string;
 }
 
-
-declare var age: number
