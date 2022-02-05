@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import { UserFormComponent } from './user-form.component';
 

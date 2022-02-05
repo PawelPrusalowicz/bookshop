@@ -1,0 +1,14 @@
+.img1{
+  height: 200px;
+  width: 200px;
+}
+
+.card{
+  background-color:gray;
+  width:100%;
+}
+.container {
+  margin-top: 2em;
+  width: 100%;
+}
+

@@ -32,6 +32,7 @@ public class Client {
     private String nip;
     private String phoneNumber;
     private String email;
+    private String password;
     private boolean loyaltyCard;
     private boolean newsletterAgreement;
 

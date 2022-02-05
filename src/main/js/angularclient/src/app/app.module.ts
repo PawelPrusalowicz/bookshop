@@ -12,6 +12,11 @@ import { UserService } from './service/user.service';
 import { ProductService } from './service/product.service';
 import { ClientService } from './service/client.service';
 import { CartService } from './service/cart.service';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { ToastMessagesComponent } from './toast-messages/toast-messages.component';
 
 
 @NgModule({
@@ -20,13 +25,18 @@ import { CartService } from './service/cart.service';
     UserListComponent,
     UserFormComponent,
     ProductListComponent,
-    ClientFormComponent
+    ClientFormComponent,
+    HeaderComponent,
+    FooterComponent,
+    ToastMessagesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NoopAnimationsModule,
+    MatButtonToggleModule
   ],
   providers: [UserService, ProductService, ClientService, CartService],
   bootstrap: [AppComponent]
