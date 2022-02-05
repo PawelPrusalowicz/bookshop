@@ -1,6 +1,28 @@
-<div class="card my-5">
-  <div class="card-body">
-    <table class="table table-bordered table-striped">
+<div class="card text-white bg-danger mb-3" style="display: inline-block !important; width: 900px !important;">
+  <div class="card-header text-center" style="display: inline-block !important; width: 900px !important;">Koszyk</div>
+  <div class="card-body" style="display: inline-block !important; width: 900px !important;">
+    <label class="card-title" style="display: inline-block !important;">Produkty:</label>
+
+    <div style="display: inline-block !important;">
+      <ul style="display: inline-block !important;">
+        <li *ngFor="let order of cart.orderPositions">
+          {{ order.product.title }} - {{ order.quantity}} szt.
+        </li>
+      </ul>
+    </div>
+
+    <label style="display: inline-block !important;">Razem: {{total}} zł</label>
+    <button class="btn btn-light btn-block" (click)="makeOrder()" style="display: inline-block !important;"
+    [disabled]="cart.orderPositions.length == 0">Złóż zamówienie
+    </button>
+  </div>
+</div>
+
+<div class="card my-5" style="display: inline-block !important;">
+
+
+  <div class="card-body" style="display: inline-block !important;">
+    <table class="table table-bordered table-striped" style="display: inline-block !important;">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Tytuł</th>
@@ -21,7 +43,7 @@
           <td>{{ product.price }}</td>
           <td>{{ product.establishmentDate }}</td>
           <td>{{ product.availableQuantity }}</td>
-          <td><button>Do koszyka</button></td>
+          <td><button (click)="addToCart(product)">Do koszyka</button></td>
         </tr>
       </tbody>
     </table>

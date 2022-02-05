@@ -1,50 +1,53 @@
 package application.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.Transient;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.sql.Date;
-import java.util.List;
+
 
 @Entity
-@Table(name = "products")
+@Table(name = "order_positions")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Product {
+public class OrderPosition {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int product_id;
-    private String title;
-    private String shortDescription;
-    private String longDescription;
-    private double price;
-    private int availableQuantity;
-    private Date establishmentDate;
-
-    @OneToMany(mappedBy="product")
-    @JsonManagedReference(value="orderposition-product")
-    private List<OrderPosition> orderPositions;
-
+    private int order_position_id;
+    private int quantity;
+    @ManyToOne
+    @JoinColumn(name="cart_id")
+    @JsonBackReference(value="orderposition-cart")
+    @Transient
+    private Cart cart;
 
     @ManyToOne
     @JoinColumn(name="product_id")
-    @JsonBackReference(value="product-publisher")
+    @JsonBackReference(value="orderposition-product")
     private Product product;
 
+    @Transient
+    public double getTotalPrice() {
+        return product.getPrice() * quantity;
+    }
+
+    @Transient
+    public Product getProduct() {
+        return product;
+    }
 }

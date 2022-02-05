@@ -1,5 +1,5 @@
 export class Product {
-    id: bigint;
+    product_id: number;
     title: string;
     shortDescription: string;
     longDescription: string;
