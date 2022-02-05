@@ -7,6 +7,12 @@ Database: PostgreSQL 12
 
 -- Create tables section -------------------------------------------------
 
+---New test user tables---
+--TODO
+
+
+---END New test user tables ---
+
 -- Table Publishers
 
 CREATE TABLE Publishers

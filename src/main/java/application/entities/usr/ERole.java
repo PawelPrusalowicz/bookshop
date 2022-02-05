@@ -1,4 +1,4 @@
-package application.models;
+package application.entities.usr;
 
 public enum ERole {
     ROLE_USER,
