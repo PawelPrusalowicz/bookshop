@@ -42,9 +42,12 @@ public class Product {
     private List<OrderPosition> orderPositions;
 
 
-    @ManyToOne
-    @JoinColumn(name="product_id")
-    @JsonBackReference(value="product-publisher")
-    private Product product;
+    @OneToMany(mappedBy="product")
+    @JsonManagedReference(value="product-authorproducts")
+    private List<AuthorProduct> authorsProducts;
+
+    @OneToMany(mappedBy="product")
+    @JsonManagedReference(value="product-genreproducts")
+    private List<GenreProduct> genresProducts;
 
 }

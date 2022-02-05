@@ -8,10 +8,13 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Transient;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 
 @Entity
@@ -21,15 +24,16 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AuthorProduct {
+public class AuthorProduct implements Serializable {
 
+    @EmbeddedId
     @ManyToOne
     @JoinColumn(name="product_id")
     @Transient
     @JsonBackReference(value="product-authorproducts")
     private Product product;
 
-
+    @EmbeddedId
     @ManyToOne
     @JoinColumn(name="author_id")
     @Transient
