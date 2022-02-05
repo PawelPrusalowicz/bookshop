@@ -1,6 +1,6 @@
 export class Client {
 
-    id: bigint;
+    client_id: number;
     firstName: string;
     lastName: string;
     companyName: string;

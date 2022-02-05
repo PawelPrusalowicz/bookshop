@@ -1,9 +1,8 @@
 package application.repositories;
 
-import application.entities.Client;
+import application.entities.OrderPosition;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClientRepository extends CrudRepository<Client, Long> {}
-
+public interface OrderPositionRepository extends CrudRepository<OrderPosition, Long> {}

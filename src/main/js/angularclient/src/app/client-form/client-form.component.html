@@ -52,6 +52,21 @@
                [(ngModel)]="passwordConfirm" class="form-control" required #email="ngModel">
       </div>
       <button type="submit" [disabled]="!clientForm.form.valid" class="btn btn-info">Zapisz</button>
+
+      <div>
+        <label for="scales">Zgoda na przetwarzanie danych osobowych:&nbsp;</label>
+        <input type="checkbox" id="scales" name="scales">
+      </div>
+
+      <div>
+        <label for="scales">Zgoda na wysyłanie treści marketingowych:&nbsp;</label>
+        <input type="checkbox" id="scales2" name="scales">
+      </div>
+
+      <!--<div [hidden]="!email.pristine" class="alert alert-danger">Email jest wymagany</div>-->
+      <!--<button type="submit" [disabled]="!clientForm.form.valid" class="btn btn-info">Zapisz</button>-->
+      <button type="submit" class="btn btn-info">Zapisz</button>
+
     </form>
   </div>
 

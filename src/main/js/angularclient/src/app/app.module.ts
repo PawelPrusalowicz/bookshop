@@ -11,6 +11,7 @@ import { ClientFormComponent } from './client-form/client-form.component';
 import { UserService } from './service/user.service';
 import { ProductService } from './service/product.service';
 import { ClientService } from './service/client.service';
+import { CartService } from './service/cart.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,7 +38,7 @@ import { ToastMessagesComponent } from './toast-messages/toast-messages.componen
     NoopAnimationsModule,
     MatButtonToggleModule
   ],
-  providers: [UserService, ProductService, ClientService],
+  providers: [UserService, ProductService, ClientService, CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
