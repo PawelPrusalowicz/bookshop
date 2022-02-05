@@ -3,7 +3,7 @@ Model: PostgreSQL 12
 Database: PostgreSQL 12
 */
 
--- Create tables section -------------------------------------------------
+-- Create tables section --
 
 ---New test user tables---
 --TODO
