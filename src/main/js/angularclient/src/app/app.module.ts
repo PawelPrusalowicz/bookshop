@@ -11,6 +11,7 @@ import { ClientFormComponent } from './client-form/client-form.component';
 import { UserService } from './service/user.service';
 import { ProductService } from './service/product.service';
 import { ClientService } from './service/client.service';
+import { CartService } from './service/cart.service';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { ClientService } from './service/client.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UserService, ProductService, ClientService],
+  providers: [UserService, ProductService, ClientService, CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

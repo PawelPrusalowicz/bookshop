@@ -18,7 +18,22 @@ public class ProductController {
 
     @GetMapping("/products")
     public List<Product> getProducts() {
+        List<Product> p = (List<Product>) productRepository.findProductsBySearchParam("Harry Potter i Kamień Filozoficzny");
+
         return (List<Product>) productRepository.findAll();
+    }
+
+
+    @GetMapping("/products/{searchParam}")
+    public List<Product> searchProducts(@PathVariable String searchParam) {
+
+        return (List<Product>) productRepository.findProductsBySearchParam(searchParam);
+    }
+
+    @PostMapping("/products/search")
+    public List<Product> searchProductsByParam(@RequestBody String searchParam) {
+
+        return (List<Product>) productRepository.findProductsBySearchParam(searchParam);
     }
 
     @PostMapping("/products")
