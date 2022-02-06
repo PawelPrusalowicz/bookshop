@@ -1,0 +1,29 @@
+<div class="card-body" style="display: inline-block !important;">
+  <h2 class="mat-card-title">Historia Twoich zamówień</h2>
+  <form>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th scope="col">Numer zamówienia</th>
+      <th scope="col">Produkty</th>
+      <th scope="col">Data utworzenia zamówienia</th>
+      <th scope="col">Suma do zapłaty</th>
+      <th scope="col">Status zamówienia</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let history of historyOrders">
+      <th scope="row">{{history.orderId}}</th>
+      <td>
+        <ul *ngFor="let position of history.orderPositions">
+          <li>{{position.product.title}} - {{position.quantity}}szt.</li>
+        </ul>
+      </td>
+      <td>{{history.creationTime}}</td>
+      <td>{{history.orderPrice}}</td>
+      <td>{{history.status}}</td>
+    </tr>
+    </tbody>
+  </table>
+  </form>
+</div>

@@ -5,6 +5,7 @@
     <li class="list-inline-item"><a routerLink="/addclient" class="btn btn-info">{{registrationMenuLabel}}</a></li>
     <li *ngIf="!isAdmin && !isGuestUser" class="list-inline-item"><a routerLink="/cart" class="btn btn-info">{{basketMenuLabel}}</a></li>
     <li *ngIf="isAdmin && !isGuestUser" class="list-inline-item"><a routerLink="/reports" class="btn btn-info">{{raportsLabel}}</a></li>
+    <li *ngIf="!isAdmin && !isGuestUser" class="list-inline-item"><a routerLink="/history" class="btn btn-info">{{historyLabel}}</a></li>
   </ul>
 </header>
 

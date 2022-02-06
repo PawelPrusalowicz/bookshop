@@ -59,14 +59,15 @@ export class ClientFormComponent {
   }
 
   onLogin() {
-    console.log('login');
     this.authenticationService.login(this.client.email, this.client.password).subscribe(
     data => {
       this.tokenStorage.saveToken(data.accessToken);
       this.tokenStorage.saveUser(data);
       this.roles = this.tokenStorage.getUser().roles;
     });
-    }
+    //todo: dodanie user type
+    this.setData('UserType',this.roles[0]);
+  }
 
   gotoClientList() {
     this.router.navigate(['/clients']);
@@ -77,7 +78,6 @@ export class ClientFormComponent {
     this.client = new Client();
   }
 
-  //TODO: kolejne waldiacje
   public validation() {
     if(!this.isCorrectPassword) {
       this.handleErrorMessage('Invalid Password', 'Passwords doesn\'t match', 'Error');
@@ -95,6 +95,18 @@ export class ClientFormComponent {
 
   closePopUp(newItem: string) {
     this.isError = false;
+  }
+
+  setData(item: string, data: string) {
+    localStorage.setItem(item, data);
+  }
+
+  getData(item: string) {
+    return localStorage.getItem(item);
+  }
+
+  removeData(key: string) {
+    localStorage.removeItem(key);
   }
 
 }

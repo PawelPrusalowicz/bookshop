@@ -1,3 +1,5 @@
+import {Client} from "./client";
+import {OrderPosition} from "./orderPosition";
 
 export class Order {
 

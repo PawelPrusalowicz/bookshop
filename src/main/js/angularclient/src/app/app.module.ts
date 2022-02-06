@@ -21,6 +21,7 @@ import { ToastMessagesComponent } from './toast-messages/toast-messages.componen
 import { CartComponent } from './cart/cart.component';
 import { ReportsComponent } from './reports/reports.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { OrderHistoryComponent } from './order-history/order-history.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     FooterComponent,
     ToastMessagesComponent,
     CartComponent,
-    ReportsComponent
+    ReportsComponent,
+    OrderHistoryComponent
   ],
   imports: [
     BrowserModule,
