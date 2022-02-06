@@ -14,15 +14,15 @@ export class HeaderComponent implements OnInit {
   raportsLabel: string;
   userType: string;
   isGuestUser: boolean;
+  historyLabel: string;
 
   constructor() {
-    //todo: do usuniecia
-    this.setData('UserType','user');
     this.homeMenuLabel = 'Strona główna';
     this.productsMenuLabel = 'Produkty';
     this.registrationMenuLabel = 'Logowanie';
     this.basketMenuLabel = 'Przejdź do koszyka';
     this.raportsLabel = 'Raporty sprzedaży';
+    this.historyLabel = 'Historia zamówień';
   }
 
   ngOnInit(): void {

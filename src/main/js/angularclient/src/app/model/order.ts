@@ -3,7 +3,6 @@ import { Client } from '../model/client';
 import { Address } from '../model/address';
 import { Discount } from '../model/discount';
 
-
 export class Order {
 
   orderId: number;
