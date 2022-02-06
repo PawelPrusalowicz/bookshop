@@ -85,8 +85,9 @@ export class ClientFormComponent {
 
     this.clientService.search(this.client.email).subscribe(data => {
     this.client = data;});
-    this.tokenStorage.getUser().id
 
+    //Wyciąganie clienta z bazy danych
+    //zapisywanie koszyka
     this.setData('Client', this.client);
     this.setData('UserType', 'user'); // user type based on user id from user_role when endpoint is ready
     let clientJson = this.getData('Client') as string;
