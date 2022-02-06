@@ -14,7 +14,7 @@ export class DiscountService {
   }
 
   public search(param : string): Observable<Discount> {
-    let url = this.discountsUrl + "/discounts";
+    let url = this.discountsUrl;
     return this.http.post<Discount>(url, param);
   }
 

@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -35,7 +37,11 @@ public class Address {
     private String postCode;
 
     @OneToMany(mappedBy="address")
-    @JsonManagedReference(value="order-client")
+    @JsonManagedReference(value="order-address")
     private List<Order> orders;
+
+    @OneToMany(mappedBy="address")
+    @JsonManagedReference(value="client-address")
+    private List<Client> clients;
 
 }

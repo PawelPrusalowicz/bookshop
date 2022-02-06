@@ -5,11 +5,42 @@ Database: PostgreSQL 12
 
 -- Create tables section --
 
----New test user tables---
---TODO
 
+--- roles table---
+CREATE TABLE Roles
+(
+  id serial NOT NULL,
+  name varchar NOT NULL
+);
 
----END New test user tables ---
+ALTER TABLE Roles ADD CONSTRAINT roles_pk PRIMARY KEY (id)
+;
+
+--- User table---
+CREATE TABLE Users
+(
+  id serial NOT NULL,
+  email varchar NOT NULL,
+  password varchar NOT NULL,
+  username varchar NOT NULL,
+  client_id integer
+);
+
+CREATE INDEX idx_users_client_id ON Users (client_id)
+;
+
+ALTER TABLE Users ADD CONSTRAINT users_pk PRIMARY KEY (id)
+;
+
+--- User table---
+CREATE TABLE User_Roles
+(
+  user_id integer NOT NULL,
+  role_id integer NOT NULL
+);
+
+ALTER TABLE User_Roles ADD CONSTRAINT user_roles_pk PRIMARY KEY (user_id, role_id)
+;
 
 -- Table Publishers
 
@@ -472,3 +503,46 @@ ALTER TABLE Products
       ON UPDATE NO ACTION
 ;
 
+ALTER TABLE Users
+  ADD CONSTRAINT users_clients_fk
+    FOREIGN KEY (client_id)
+    REFERENCES Clients (client_id)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+;
+
+ALTER TABLE User_Roles
+  ADD CONSTRAINT user_roles_user_fk
+    FOREIGN KEY (user_id)
+    REFERENCES Users (id)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+;
+
+ALTER TABLE User_Roles
+  ADD CONSTRAINT user_roles_roles_fk
+    FOREIGN KEY (role_id)
+    REFERENCES Roles (id)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+;
+
+
+CREATE or replace FUNCTION monthly_earnings()
+RETURNS TABLE(month varchar, sum int, order_number int, clients_number int, product_count int) AS $$
+select
+	to_char(o.creation_time, 'YYYY/MM'),
+	SUM (op.quantity * p.price),
+	count(distinct o.order_id),
+	count(distinct o.client_id),
+	count(op.quantity)
+from
+	order_positions op
+join products p
+		using (product_id)
+join orders o
+		using (order_id)
+group by
+	to_char(o.creation_time, 'YYYY/MM')
+order by to_char(o.creation_time, 'YYYY/MM') desc;
+$$ LANGUAGE SQL;

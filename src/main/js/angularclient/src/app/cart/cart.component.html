@@ -19,10 +19,11 @@
       <br>
       <label class="card-title">
         Podaj kod rabatowy:
-        <input style="color: gray;" type="text" maxLength="15" >
+        <input style="color: gray;" type="text" maxLength="15" id="search">
       </label>
-      <button type="submit" [disabled]="false" class="btn btn-info">Przelicz rabat</button>
+      <button type="submit" [disabled]="false" class="btn btn-info" (click)="getDiscount()">Przelicz rabat</button>
       <h6 class="card-subtitle mb-2 text-muted margin">Suma zamówienia: {{orderSum}} zł</h6>
+      <label class="card-title" id="discountInfo" style="color: red;"></label>
     </div>
   </div>
 

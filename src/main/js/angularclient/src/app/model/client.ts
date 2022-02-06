@@ -1,3 +1,5 @@
+import { Address } from '../model/address';
+
 export class Client {
 
     client_id: number;
@@ -10,5 +12,6 @@ export class Client {
     loyaltyCard: boolean;
     newsletterAgreement: boolean;
     password: string;
+    address : Address;
 
 }
