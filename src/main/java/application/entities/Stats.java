@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,5 +18,4 @@ public class Stats {
     private int orderNumber;
     private int clientsNumber;
     private int productCount;
-
 }
