@@ -42,7 +42,6 @@ export class ClientFormComponent {
     this.roles = this.tokenStorage.getUser().roles;
     //placeholder for form
     this.address = new Address();
-    this.address.address_id = ' hmmm'
     this.address.street = ' assa';
     this.address.buildingNo = ' asssa';
     this.address.apartamentNo: ' assa';
@@ -66,6 +65,7 @@ export class ClientFormComponent {
       this.setData('Client', this.client);
       this.setData('UserType', 'user');
       let clientJson = this.getData('Client') as string;
+      console.log("test");
       console.log(clientJson);
 
       this.authenticationService.login(this.client.email, this.client.password).subscribe(data => {
@@ -73,7 +73,7 @@ export class ClientFormComponent {
       this.tokenStorage.saveUser(data);
       this.roles = this.tokenStorage.getUser().roles;
 
-      //this.client.address = this.address;
+      this.client.address = this.address;
       this.clientService.save(this.client).subscribe(result => this.gotoClientList());
       });
       });
