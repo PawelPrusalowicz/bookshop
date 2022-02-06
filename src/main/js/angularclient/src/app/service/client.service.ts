@@ -20,7 +20,7 @@ export class ClientService {
     return this.http.post<Client>(this.clientsUrl, client);
   }
 
-  public search(param : number): Observable<Client> {
+  public searchByLogin(param : string): Observable<Client> {
     let url = this.clientsUrl + "/search";
     return this.http.post<Client>(url, param);
   }

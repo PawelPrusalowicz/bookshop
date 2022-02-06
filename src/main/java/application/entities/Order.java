@@ -57,9 +57,8 @@ public class Order {
     private Discount discount;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="address_id")
-    @Transient
     @JsonBackReference(value="order-address")
     private Address address;
 
