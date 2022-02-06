@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Cart} from "../model/cart";
 import {Product} from "../model/product";
 import {Client} from "../model/client";
+import {Address} from "../model/address";
 
 @Component({
   selector: 'app-cart',
@@ -12,12 +13,14 @@ export class CartComponent implements OnInit {
 
   cart: Cart;
   client: Client;
+  address: Address;
   isOtherAddress: boolean;
   isCancelFlag: boolean;
 
   street: string;
   zipCode: string;
-  homeNumber: string;
+  buildingNumber: string;
+  apartamentNumber: string;
   city: string;
 
   get orderSum() {
@@ -26,23 +29,15 @@ export class CartComponent implements OnInit {
       totalSum += item.quantity;
     }
     return totalSum;
-
   }
 
   constructor() {
-
     let cartJson = this.getData('Cart') as string;
     this.cart = JSON.parse(cartJson);
-    console.log(this.cart);
 
-    let clientJson = this.getData('Address') as string;
-    this.client = JSON.parse(clientJson);
-
-    this.street = '';
-    this.zipCode = '';
-    this.homeNumber = '';
-    this.city = '';
-
+    let addressJSON = this.getData('Address') as string;
+    this.address = JSON.parse(addressJSON);
+    this.getAddressFromClient();
     this.isOtherAddress = false;
     this.isCancelFlag = false;
   }
@@ -52,15 +47,14 @@ export class CartComponent implements OnInit {
 
   deleteItemFromBasket(itemId: Product) {
     // //todo: usuniecie produktu z koszyka
-    // console.log(itemId);
+    console.log(itemId);
   }
 
   onCheckboxChange() {
     this.isOtherAddress = !this.isOtherAddress;
-    if(this.isOtherAddress) {
-      //todo: kopia pol z klient.address
+    if(!this.isOtherAddress) {
+      this.getAddressFromClient();
     }
-    console.log(this.isOtherAddress);
   }
 
   cancelSubmit() {
@@ -89,7 +83,25 @@ export class CartComponent implements OnInit {
   }
 
   getAddressFromClient() {
-
+    this.street = this.address.street;
+    this.zipCode = this.address.postCode;
+    this.buildingNumber = this.address.buildingNo;
+    this.apartamentNumber = this.address.apartamentNo;
+    this.city = this.address.city;
   }
 
+  getAddressForOrder() {
+    let address = new Address();
+    address.street = this.street;
+    address.postCode = this.zipCode;
+    address.apartamentNo = this.apartamentNumber;
+    address.buildingNo = this.buildingNumber;
+    address.city = this.city;
+    return address;
+  }
+
+  submitOrder() {
+    //adres do zamowienia:
+    console.log(this.getAddressForOrder());
+  }
 }
