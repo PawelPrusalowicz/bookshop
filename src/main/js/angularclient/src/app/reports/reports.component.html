@@ -1,0 +1,21 @@
+<h2 class="mat-card-title">Statystyki miesięcznej sprzedaży</h2>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th scope="col">Miesiąc</th>
+    <th scope="col">Liczba zamówień</th>
+    <th scope="col">Liczba klientów</th>
+    <th scope="col">Liczba sprzedanych produktów</th>
+    <th scope="col">Suma</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let month of report">
+    <th scope="row">{{month.month}}</th>
+    <td>{{month.orderNumber}}</td>
+    <td>{{month.productCount}}</td>
+    <td>{{month.clientsNumber}}</td>
+    <td>{{month.sum}}</td>
+  </tr>
+  </tbody>
+</table>

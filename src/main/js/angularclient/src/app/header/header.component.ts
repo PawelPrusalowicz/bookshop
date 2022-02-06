@@ -11,12 +11,14 @@ export class HeaderComponent implements OnInit {
   productsMenuLabel: string;
   registrationMenuLabel: string;
   basketMenuLabel: string;
+  raportsLabel: string;
 
   constructor() {
-    this.homeMenuLabel = 'Home';
-    this.productsMenuLabel = 'Products';
-    this.registrationMenuLabel = 'Registration/Login';
+    this.homeMenuLabel = 'Strona główna';
+    this.productsMenuLabel = 'Produkty';
+    this.registrationMenuLabel = 'Logowanie';
     this.basketMenuLabel = 'Przejdź do koszyka';
+    this.raportsLabel = 'Raporty sprzedaży';
   }
 
   ngOnInit(): void {

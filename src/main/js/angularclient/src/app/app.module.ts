@@ -18,6 +18,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { ToastMessagesComponent } from './toast-messages/toast-messages.component';
 import { CartComponent } from './cart/cart.component';
+import { ReportsComponent } from './reports/reports.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CartComponent } from './cart/cart.component';
     HeaderComponent,
     FooterComponent,
     ToastMessagesComponent,
-    CartComponent
+    CartComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
