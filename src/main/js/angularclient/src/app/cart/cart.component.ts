@@ -21,13 +21,19 @@ export class CartComponent implements OnInit {
   city: string;
 
   get orderSum() {
-    //todo: suma towarow
-    return 100;
+    let totalSum = 0;
+    for(let item of this.cart.orderPositions) {
+      totalSum += item.quantity;
+    }
+    return totalSum;
+
   }
 
   constructor() {
+
     let cartJson = this.getData('Cart') as string;
     this.cart = JSON.parse(cartJson);
+    console.log(this.cart);
 
     let clientJson = this.getData('Address') as string;
     this.client = JSON.parse(clientJson);
@@ -60,6 +66,7 @@ export class CartComponent implements OnInit {
   cancelSubmit() {
     this.isCancelFlag = true;
   }
+
   cancel() {
     //todo: usuniecie calego zamowienia i przekierowanie na strone glowna
   }
@@ -68,8 +75,17 @@ export class CartComponent implements OnInit {
     this.isCancelFlag = false;
   }
 
+  setData(item: string, data: any) {
+    const jsonData = JSON.stringify(data);
+    localStorage.setItem(item, jsonData);
+  }
+
   getData(item: string) {
     return localStorage.getItem(item);
+  }
+
+  removeData(key: string) {
+    localStorage.removeItem(key);
   }
 
   getAddressFromClient() {

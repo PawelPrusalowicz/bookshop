@@ -7,7 +7,6 @@ import { Client } from '../model/client';
 import { ProductService } from '../service/product.service';
 import { CartService } from '../service/cart.service';
 
-
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -21,8 +20,17 @@ export class ProductListComponent implements OnInit {
 
   total: number;
 
-  constructor(private productService: ProductService, private cartService: CartService) {
+  wasAddToCard: boolean;
+  isEmptySearch: boolean;
 
+  style: string
+
+  constructor(private productService: ProductService, private cartService: CartService) {
+    this.wasAddToCard = false;
+    this.isEmptySearch = false;
+    this.style = 'Information';
+    //todo: do testow
+    this.products = [];
   }
 
   ngOnInit() {
@@ -36,20 +44,29 @@ export class ProductListComponent implements OnInit {
     this.cart.creation_date = new Date('2021-12-17T03:24:00');
     this.cart.client = new Client();
     this.cart.client.client_id = 1;
-
+    //todo: tutaj dodaje do storage:
+    this.setData('Cart', this.cart);
   }
 
   searchProducts() {
-      let searchParam = (<HTMLInputElement>document.getElementById("search")).value;
-      if (searchParam) {
-        this.productService.search(searchParam).subscribe(data => {
-        this.products = data;
+    this.wasAddToCard = false;
+    this.isEmptySearch = false;
 
-        });
-      }
+    let searchParam = (<HTMLInputElement>document.getElementById("search")).value;
+    if (searchParam) {
+      this.productService.search(searchParam).subscribe(data => {
+      this.products = data;
+      });
+    }
+
+    if(this.products.length == 0) {
+      this.isEmptySearch = true;
+    }
+
   }
 
   addToCart(product: Product) {
+    this.wasAddToCard = false;
       for (let orderPos of this.cart.orderPositions) {
           if (orderPos.product.product_id == product.product_id) {
               orderPos.quantity += 1;
@@ -70,10 +87,33 @@ export class ProductListComponent implements OnInit {
       for (let orderPos of this.cart.orderPositions) {
         this.total += orderPos.quantity * orderPos.product.price;
       }
+
+      this.wasAddToCard = true;
+      //dodanie do storage po każdym dodaniu produktu
+      this.setData('Cart', this.cart);
   }
 
   makeOrder() {
       this.cartService.save(this.cart);
   }
+
+  closePopUp(newItem: string) {
+    this.wasAddToCard = false;
+    this.isEmptySearch = false;
+  }
+
+  setData(item: string, data: any) {
+    const jsonData = JSON.stringify(data);
+    localStorage.setItem(item, jsonData);
+  }
+
+  getData(item: string) {
+    return localStorage.getItem('Products');
+  }
+
+  removeData(key: string) {
+    localStorage.removeItem(key);
+  }
+
 
 }

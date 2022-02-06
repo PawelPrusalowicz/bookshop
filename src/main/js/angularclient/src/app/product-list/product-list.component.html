@@ -1,38 +1,19 @@
-<div class="card text-white bg-danger mb-3" style="display: inline-block !important; width: 900px !important;">
-  <div class="card-header text-center" style="display: inline-block !important; width: 900px !important;">Koszyk</div>
-  <div class="card-body" style="display: inline-block !important; width: 900px !important;">
-    <label class="card-title" style="display: inline-block !important;">Produkty:</label>
-
-    <div style="display: inline-block !important;">
-      <ul style="display: inline-block !important;">
-        <li *ngFor="let order of cart.orderPositions">
-          {{ order.product.title }} - {{ order.quantity}} szt. * {{ order.product.price}} zł
-        </li>
-      </ul>
-    </div>
-    <br>
-    <label>Razem: {{total}} zł</label>
-    <button class="btn btn-light btn-block" (click)="makeOrder()" style="display: inline-block !important;"
-    [disabled]="cart.orderPositions.length == 0">Złóż zamówienie
-    </button>
-  </div>
-</div>
-
-
-
+<app-toast-messages header="Dodano produkt do koszyka" body="Przejdź do zakładki koszyk, aby złożyć zamówienie"
+                    [openPopUp]="wasAddToCard" [style]="style" (closeModalEvent)="closePopUp($event)" >
+</app-toast-messages>
+<app-toast-messages header="Brak wyników dla podanego zapytania" body="Wpisz tytuł lub autora książki"
+                    [openPopUp]="isEmptySearch" [style]="style" (closeModalEvent)="closePopUp($event)" >
+</app-toast-messages>
 
 <div class="card my-5" style="display: inline-block !important;">
   <div class="card-body" style="display: inline-block !important;">
-
     <div class="search-container">
       <form>
-        <input ng-model="searchText" type="text" placeholder="Wyszukaj tytuł lub autora" id="search">
-        <button (click)="searchProducts()">Wyszukaj</button>
+        <input ng-model="searchText" type="text" (input)="closePopUp('')" placeholder="Wyszukaj tytuł lub autora" id="search">
+        <button class="btn btn-info" (click)="searchProducts()">Wyszukaj</button>
       </form>
     </div>
-
   <hr>
-
     <table class="table table-bordered table-striped" style="display: inline-block !important;">
       <thead class="thead-dark">
         <tr>
@@ -45,7 +26,6 @@
           <th scope="col">Data wydania</th>
           <th scope="col">Dostępna liczba sztuk</th>
           <th scope="col">Dodaj do koszyka</th>
-
         </tr>
       </thead>
       <tbody>
