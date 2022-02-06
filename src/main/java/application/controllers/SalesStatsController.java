@@ -18,7 +18,7 @@ public class SalesStatsController {
         this.statsRepository = statsRepository;
     }
 
-    @GetMapping("/stats")
+    @GetMapping("/reports")
     public List<Stats> getStats() {
         return (List<Stats>) statsRepository.select();
     }

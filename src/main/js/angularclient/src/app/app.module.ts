@@ -12,6 +12,7 @@ import { UserService } from './service/user.service';
 import { ProductService } from './service/product.service';
 import { ClientService } from './service/client.service';
 import { CartService } from './service/cart.service';
+import { ReportService } from './service/report.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -43,7 +44,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     NoopAnimationsModule,
     MatButtonToggleModule
   ],
-  providers: [authInterceptorProviders, UserService, ProductService, ClientService, CartService],
+  providers: [authInterceptorProviders, UserService, ProductService, ClientService, CartService, ReportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

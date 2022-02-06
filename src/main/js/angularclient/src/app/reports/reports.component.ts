@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Stats} from "../model/stats";
+import { ReportService } from '../service/report.service';
+
 
 @Component({
   selector: 'app-reports',
@@ -10,12 +12,21 @@ export class ReportsComponent implements OnInit {
 
   report: Stats[];
 
-  constructor() {
-    //todo: podpięice Service
-    this.report = [new Stats(), new Stats(), new Stats()];
+  constructor(private reportService: ReportService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
+var number = 2453413.70;
+
+//#console.log(new Intl.NumberFormat('en-IN', { style: "currency", currency: "INR" }).format(number));
+//#if you dont want currency symbol, use it like this
+
+console.log(new Intl.NumberFormat('en-IN').format(number));
+console.log("OK");
+    this.reportService.findAll().subscribe(data => {
+      this.report = data;
+    });
   }
 
 }
