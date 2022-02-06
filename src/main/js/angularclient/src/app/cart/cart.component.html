@@ -1,3 +1,4 @@
+<app-toast-messages [openPopUp]="openPopUp" [header]="header" [body]="body" [style]="style" (closeModalEvent)="closePopUp($event)"></app-toast-messages>
 <button type="submit" class="btn btn-info cancelButton" (click)="cancelSubmit()">Anuluj zamówienie</button>
 <div *ngIf="isCancelFlag">
   <label class="card-title" style="color: red; font-style: italic;">Uwaga, Twoje zamówienie zostanie anulowane, czy potwierdzasz anulację</label>
@@ -13,7 +14,7 @@
       <ul style="display: inline-block !important;">
         <li *ngFor="let order of cart.orderPositions">
           {{ order.product.title}} - {{ order.quantity}} szt.
-          <a class="close" [routerLink]="" (click)="deleteItemFromBasket(order.product)">&times;</a>
+          <a class="close" [routerLink]="" (click)="deleteItemFromBasket(order)">&times;</a>
         </li>
       </ul>
       <br>
@@ -53,7 +54,7 @@
       </div>
     </form>
   </div>
-  <button type="submit" class="btn btn-info submitButton" (click)="submitOrder()">Zatwierdź zamówienie</button>
+  <button type="submit" [disabled]="isDisabledSubmit" class="btn btn-info submitButton" (click)="submitOrder()">Zatwierdź zamówienie</button>
 </div>
 
 

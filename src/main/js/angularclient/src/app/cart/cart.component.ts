@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Cart} from "../model/cart";
-import {Product} from "../model/product";
 import {Client} from "../model/client";
 import {Address} from "../model/address";
+import {OrderPosition} from "../model/orderPosition";
 
 @Component({
   selector: 'app-cart',
@@ -16,6 +16,7 @@ export class CartComponent implements OnInit {
   address: Address;
   isOtherAddress: boolean;
   isCancelFlag: boolean;
+  openPopUp: boolean;
 
   street: string;
   zipCode: string;
@@ -32,10 +33,12 @@ export class CartComponent implements OnInit {
   }
 
   constructor() {
+
     let cartJson = this.getData('Cart') as string;
-    this.cart = JSON.parse(cartJson);
-
-
+    this.cart = new Cart();
+    if(cartJson != null) {
+      this.cart = JSON.parse(cartJson);
+    }
     let addressJSON = this.getData('Address') as string;
     if(addressJSON != null) {
       this.address = JSON.parse(addressJSON);
@@ -44,14 +47,21 @@ export class CartComponent implements OnInit {
 
     this.isOtherAddress = false;
     this.isCancelFlag = false;
+    this.openPopUp = false;
   }
 
   ngOnInit(): void {
   }
 
-  deleteItemFromBasket(itemId: Product) {
-    // //todo: usuniecie produktu z koszyka
-    console.log(itemId);
+  deleteItemFromBasket(orderPosition: OrderPosition) {
+    let index = this.cart.orderPositions.indexOf(orderPosition);
+    this.cart.orderPositions.splice(index,1);
+    this.setData('Cart', this.cart);
+    if(this.cart.orderPositions.length == 0) {
+      alert("Hello\nHow are you?");
+      this.handleOpenPopUp('Koszyk jest pusty', 'Wróć na stronę produkty, aby kontynuować zakupy', 'Information');
+    }
+    console.log(this.getData('Cart'));
   }
 
   onCheckboxChange() {
@@ -108,4 +118,23 @@ export class CartComponent implements OnInit {
     //adres do zamowienia:
     console.log(this.getAddressForOrder());
   }
+
+  header: string;
+  body: string;
+  style: string;
+  handleOpenPopUp(header: string, body: string, style: string) {
+    this.header = header;
+    this.body = body;
+    this.style = style;
+    this.openPopUp = true;
+  }
+
+  closePopUp(newItem: string) {
+    this.openPopUp = false;
+  }
+
+  get isDisabledSubmit() {
+    return this.cart.orderPositions.length == 0;
+  }
+
 }

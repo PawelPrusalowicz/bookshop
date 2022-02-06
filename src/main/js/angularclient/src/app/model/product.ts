@@ -8,7 +8,7 @@ export class Product {
     shortDescription: string;
     longDescription: string;
     price: number;
-    availableQuantity: bigint;
+    availableQuantity: number;
     establishmentDate: Date;
     genres : Genre[] = [];
     authors : Author[] = [];
