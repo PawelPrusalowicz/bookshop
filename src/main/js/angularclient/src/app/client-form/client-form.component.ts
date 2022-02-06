@@ -2,6 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from '../service/client.service';
 import { Client } from '../model/client';
+import { AuthService } from '../service/auth.service';
+import { TokenStorageService } from '../service/token-storage.service';
 
 @Component({
   selector: 'app-client-form',
@@ -19,9 +21,11 @@ export class ClientFormComponent {
   popUpHeader : string;
   popUpBody : string;
   popUpStyle : string;
+  //added for login, can be moved somewhere
+  roles: string[] = [];
   public selectedVal: string;
 
-  constructor(private route: ActivatedRoute, private router: Router, private clientService: ClientService) {
+  constructor(private route: ActivatedRoute, private router: Router, private clientService: ClientService, private authenticationService: AuthService, private tokenStorage: TokenStorageService) {
     this.client = new Client();
     this.registrationButtonLabel = 'Zarejestruj nowe konto';
     this.loginButtonLabel = 'Zaloguj się';
@@ -32,6 +36,8 @@ export class ClientFormComponent {
     this.popUpHeader = 'Unexpected Error';
     this.popUpStyle = 'Error';
     this.popUpBody = 'Unexpected error. Please contact with administrator';
+    //added for login, can be moved somewhere
+    this.roles = this.tokenStorage.getUser().roles;
   }
 
   get isRegisterComponent() {
@@ -43,18 +49,24 @@ export class ClientFormComponent {
   }
 
   onSubmit() {
-
     if(this.validation()) {
       this.clientService.save(this.client).subscribe(result => this.gotoClientList());
+      this.authenticationService.register(this.client.email, this.client.email, this.client.password).subscribe();
+      //TODO po rejestracji zmieniaj okno
     }else {
       console.log('incorrect password');
     }
   }
 
   onLogin() {
-    //TODO: logowanie
     console.log('login');
-  }
+    this.authenticationService.login(this.client.email, this.client.password).subscribe(
+    data => {
+      this.tokenStorage.saveToken(data.accessToken);
+      this.tokenStorage.saveUser(data);
+      this.roles = this.tokenStorage.getUser().roles;
+    });
+    }
 
   gotoClientList() {
     this.router.navigate(['/clients']);

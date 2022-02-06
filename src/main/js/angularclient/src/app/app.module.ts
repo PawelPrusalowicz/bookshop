@@ -15,8 +15,9 @@ import { CartService } from './service/cart.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import { MatButtonToggleModule} from "@angular/material/button-toggle";
 import { ToastMessagesComponent } from './toast-messages/toast-messages.component';
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { ToastMessagesComponent } from './toast-messages/toast-messages.componen
     ClientFormComponent,
     HeaderComponent,
     FooterComponent,
-    ToastMessagesComponent
+    ToastMessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +39,7 @@ import { ToastMessagesComponent } from './toast-messages/toast-messages.componen
     NoopAnimationsModule,
     MatButtonToggleModule
   ],
-  providers: [UserService, ProductService, ClientService, CartService],
+  providers: [authInterceptorProviders, UserService, ProductService, ClientService, CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
