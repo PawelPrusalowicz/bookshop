@@ -17,6 +17,9 @@ export class HeaderComponent implements OnInit {
   historyLabel: string;
 
   constructor() {
+    //todo: do usuniecia
+    this.setData('UserType','user');
+
     this.homeMenuLabel = 'Strona główna';
     this.productsMenuLabel = 'Produkty';
     this.registrationMenuLabel = 'Logowanie';

@@ -43,6 +43,7 @@ export class ProductListComponent implements OnInit {
     this.cart.client = new Client();
     this.cart.client.client_id = 1;
     //todo: tutaj dodaje do storage:
+
     this.setData('Cart', this.cart);
   }
 
@@ -64,6 +65,8 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product) {
+    console.log(this.cart);
+    console.log(this.getData('Cart'));
     this.wasAddToCard = false;
       for (let orderPos of this.cart.orderPositions) {
           if (orderPos.product.product_id == product.product_id) {
@@ -78,14 +81,11 @@ export class ProductListComponent implements OnInit {
       let orderPosition = new OrderPosition();
       orderPosition.product = product;
       orderPosition.quantity = 1;
-
       this.cart.orderPositions.push(orderPosition);
-
       this.total = 0;
       for (let orderPos of this.cart.orderPositions) {
         this.total += orderPos.quantity * orderPos.product.price;
       }
-
       this.wasAddToCard = true;
       //dodanie do storage po każdym dodaniu produktu
       this.setData('Cart', this.cart);
