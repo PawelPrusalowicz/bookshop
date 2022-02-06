@@ -35,9 +35,13 @@ export class CartComponent implements OnInit {
     let cartJson = this.getData('Cart') as string;
     this.cart = JSON.parse(cartJson);
 
+
     let addressJSON = this.getData('Address') as string;
-    this.address = JSON.parse(addressJSON);
-    this.getAddressFromClient();
+    if(addressJSON != null) {
+      this.address = JSON.parse(addressJSON);
+      this.getAddressFromClient();
+    }
+
     this.isOtherAddress = false;
     this.isCancelFlag = false;
   }
