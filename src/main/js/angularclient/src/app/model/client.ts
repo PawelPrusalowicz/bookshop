@@ -15,7 +15,7 @@ export class Client {
     loyaltyCard: boolean;
     newsletterAgreement: boolean;
     password: string;
-    address : Address;
+   // address : Address;
     orders : Order[] = [];
     carts : Cart[] = [];
 
