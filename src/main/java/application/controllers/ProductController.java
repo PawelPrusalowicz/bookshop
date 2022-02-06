@@ -1,7 +1,9 @@
 package application.controllers;
 
+import application.entities.Client;
 import application.entities.Discount;
 import application.entities.Product;
+import application.repositories.ClientRepository;
 import application.repositories.ProductRepository;
 import application.repositories.DiscountRepository;
 import org.springframework.web.bind.annotation.*;
@@ -13,17 +15,14 @@ import java.util.List;
 public class ProductController {
 
     private final ProductRepository productRepository;
-    private final DiscountRepository discountRepository;
 
-    public ProductController(ProductRepository productRepository, DiscountRepository discountRepository) {
+    public ProductController(ProductRepository productRepository) {
 
         this.productRepository = productRepository;
-        this.discountRepository = discountRepository;
     }
 
     @GetMapping("/products")
     public List<Product> getProducts() {
-        Discount s = discountRepository.findByDiscountCode("ABCDEFXYZ");
         return (List<Product>) productRepository.findAll();
     }
 

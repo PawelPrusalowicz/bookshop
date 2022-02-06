@@ -45,18 +45,4 @@ public class Cart {
     @JsonBackReference(value="cart-client")
     private Client client;
 
-
-    @Transient
-    public Double getTotalOrderPrice() {
-        double sum = 0D;
-        for (OrderPosition op : orderPositions) {
-            sum += op.getTotalPrice();
-        }
-        return sum;
-    }
-
-    @Transient
-    public int getNumberOfProducts() {
-        return this.orderPositions.size();
-    }
 }

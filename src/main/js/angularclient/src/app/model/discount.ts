@@ -1,5 +1,5 @@
 
-export class Order {
+export class Discount {
 
   discountId: number;
   discountCode : string;

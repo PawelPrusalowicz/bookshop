@@ -1,5 +1,7 @@
-import {Client} from "./client";
-import {OrderPosition} from "./orderPosition";
+import { OrderPosition } from '../model/orderPosition';
+import { Client } from '../model/client';
+import { Address } from '../model/address';
+import { Discount } from '../model/discount';
 
 export class Order {
 
@@ -9,6 +11,8 @@ export class Order {
   status : string;
   invoiceDate : Date;
   client : Client;
+  address : Address;
+  discount : Discount;
   orderPositions : OrderPosition[] = [];
 
 }

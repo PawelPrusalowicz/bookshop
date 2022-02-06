@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from '../service/client.service';
 import { Client } from '../model/client';
+import { Address } from '../model/address';
 import { AuthService } from '../service/auth.service';
 import { TokenStorageService } from '../service/token-storage.service';
 
@@ -13,6 +14,7 @@ import { TokenStorageService } from '../service/token-storage.service';
 export class ClientFormComponent {
 
   client: Client;
+  address: Address;
   registrationButtonLabel: String;
   loginButtonLabel: String;
   loginFlag: Boolean;
@@ -38,6 +40,15 @@ export class ClientFormComponent {
     this.popUpBody = 'Unexpected error. Please contact with administrator';
     //added for login, can be moved somewhere
     this.roles = this.tokenStorage.getUser().roles;
+    //placeholder for form
+    this.address = new Address();
+    this.address.street = ' assa';
+    this.address.buildingNo = ' asssa';
+    this.address.apartamentNo: ' assa';
+    this.address.city = ' assa';
+    this.address.country = ' assa';
+    this.postCode = ' postcode';
+
   }
 
   get isRegisterComponent() {
@@ -49,14 +60,29 @@ export class ClientFormComponent {
   }
 
   onSubmit() {
-    if(this.validation()) {
+    if (this.validation()) {
+      this.authenticationService.register(this.client.email, this.client.email, this.client.password).subscribe(data => {
+      this.setData('Client', this.client);
+      this.setData('UserType', 'user');
+      let clientJson = this.getData('Client') as string;
+      console.log("test");
+      console.log(clientJson);
+
+      this.authenticationService.login(this.client.email, this.client.password).subscribe(data => {
+      this.tokenStorage.saveToken(data.accessToken);
+      this.tokenStorage.saveUser(data);
+      this.roles = this.tokenStorage.getUser().roles;
+
+      this.client.address = this.address;
       this.clientService.save(this.client).subscribe(result => this.gotoClientList());
-      this.authenticationService.register(this.client.email, this.client.email, this.client.password).subscribe();
-      //TODO po rejestracji zmieniaj okno
-    }else {
-      console.log('incorrect password');
+      });
+      });
     }
-  }
+    else {
+      console.log('incorrect password');
+      this.successfulReg = false;
+    }
+}
 
   onLogin() {
     this.authenticationService.login(this.client.email, this.client.password).subscribe(
@@ -64,8 +90,12 @@ export class ClientFormComponent {
       this.tokenStorage.saveToken(data.accessToken);
       this.tokenStorage.saveUser(data);
       this.roles = this.tokenStorage.getUser().roles;
+
+      this.client = this.clientService.searchByLogin(this.client.email);
+      this.setData('Client', this.client);
     });
-    //todo: dodanie user type
+
+
     this.setData('UserType',this.roles[0]);
   }
 

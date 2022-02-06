@@ -1,3 +1,8 @@
+import { Address } from '../model/address';
+import { Order } from '../model/order';
+import { Cart } from '../model/cart';
+
+
 export class Client {
 
     client_id: number;
@@ -10,5 +15,8 @@ export class Client {
     loyaltyCard: boolean;
     newsletterAgreement: boolean;
     password: string;
+   // address : Address;
+    orders : Order[] = [];
+    carts : Cart[] = [];
 
 }
