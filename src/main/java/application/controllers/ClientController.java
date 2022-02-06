@@ -25,4 +25,9 @@ public class ClientController {
     void addClient(@RequestBody Client client) {
         clientRepository.save(client);
     }
+
+    @PostMapping("/clients/search")
+    public Client searchProductsByParam(@RequestBody Long id) {
+        return clientRepository.findById(id).get();
+    }
 }

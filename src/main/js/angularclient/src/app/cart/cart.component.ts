@@ -23,7 +23,7 @@ export class CartComponent implements OnInit {
   get orderSum() {
     let totalSum = 0;
     for(let item of this.cart.orderPositions) {
-      totalSum += item.quantity;
+      totalSum += item.quantity * item.product.price;
     }
     return totalSum;
 

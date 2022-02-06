@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,37 +16,26 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-@Table(name = "clients")
+@Table(name = "addresses")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Client {
+public class Address {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int client_id;
-    private String firstName;
-    private String lastName;
-    private String companyName;
-    private String nip;
-    private String phoneNumber;
-    private String email;
-    private String password;
-    private boolean loyaltyCard;
-    private boolean newsletterAgreement;
+    private int address_id;
+    private String street;
+    private String buildingNo;
+    private String apartamentNo;
+    private String city;
+    private String country;
+    private String postCode;
 
-    @OneToMany(mappedBy="client")
-    @JsonManagedReference(value="cart-client")
-    private List<Cart> carts;
-
-
-    @OneToMany(mappedBy="client")
+    @OneToMany(mappedBy="address")
     @JsonManagedReference(value="order-client")
     private List<Order> orders;
 
-
 }
-
-

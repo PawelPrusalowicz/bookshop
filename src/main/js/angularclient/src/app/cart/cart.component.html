@@ -12,7 +12,7 @@
       <h6 class="card-subtitle mb-2 text-muted">Twoje zamówienie:</h6>
       <ul style="display: inline-block !important;">
         <li *ngFor="let order of cart.orderPositions">
-          {{ order.product}} - {{ order.quantity}} szt.
+          {{ order.product.title}} - {{ order.quantity}} szt.
           <a class="close" [routerLink]="" (click)="deleteItemFromBasket(order.product)">&times;</a>
         </li>
       </ul>

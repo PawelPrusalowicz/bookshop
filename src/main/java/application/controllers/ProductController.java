@@ -1,9 +1,9 @@
 package application.controllers;
 
+import application.entities.Discount;
 import application.entities.Product;
-import application.entities.Stats;
 import application.repositories.ProductRepository;
-import application.repositories.StatsRepository;
+import application.repositories.DiscountRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,26 +13,18 @@ import java.util.List;
 public class ProductController {
 
     private final ProductRepository productRepository;
-    private final StatsRepository statsRepository;
+    private final DiscountRepository discountRepository;
 
-    public ProductController(ProductRepository productRepository, StatsRepository statsRepository) {
+    public ProductController(ProductRepository productRepository, DiscountRepository discountRepository) {
 
         this.productRepository = productRepository;
-        this.statsRepository = statsRepository;
+        this.discountRepository = discountRepository;
     }
 
     @GetMapping("/products")
     public List<Product> getProducts() {
-        List<Product> p = (List<Product>) productRepository.findProductsBySearchParam("Harry Potter i Kamień Filozoficzny");
-        List<Stats> l = statsRepository.select();
+        Discount s = discountRepository.findByDiscountCode("ABCDEFXYZ");
         return (List<Product>) productRepository.findAll();
-    }
-
-
-    @GetMapping("/products/{searchParam}")
-    public List<Product> searchProducts(@PathVariable String searchParam) {
-        List<Stats> l = statsRepository.select();
-        return (List<Product>) productRepository.findProductsBySearchParam(searchParam);
     }
 
     @PostMapping("/products/search")

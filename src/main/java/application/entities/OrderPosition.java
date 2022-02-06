@@ -30,6 +30,7 @@ public class OrderPosition {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int order_position_id;
     private int quantity;
+
     @ManyToOne
     @JoinColumn(name="cart_id")
     @JsonBackReference(value="orderposition-cart")
@@ -40,6 +41,12 @@ public class OrderPosition {
     @JoinColumn(name="product_id")
     @JsonBackReference(value="orderposition-product")
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name="order_id")
+    @JsonBackReference(value="orderposition-order")
+    @Transient
+    private Order order;
 
     @Transient
     public double getTotalPrice() {
