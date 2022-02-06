@@ -1,0 +1,16 @@
+header{
+  position:fixed;
+  top:0px;
+  background-color:gray;
+  width:100%;
+  z-index: 10000;
+}
+
+.menuClass {
+  margin-top: 1em;
+}
+
+.btn {
+  background-color: gray;
+  border-color: gray;
+}

@@ -1,0 +1,9 @@
+<div id="popup1">
+  <div *ngIf="openPopUp" class="popup" [style.background-color]="brand">
+    <h2>{{header}}</h2>
+    <a class="close" [routerLink]="" (click)="closeModal()">&times;</a>
+    <div class="content">
+      {{body}}
+    </div>
+  </div>
+</div>
