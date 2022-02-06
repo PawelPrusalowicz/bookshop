@@ -29,8 +29,6 @@ export class ProductListComponent implements OnInit {
     this.wasAddToCard = false;
     this.isEmptySearch = false;
     this.style = 'Information';
-    //todo: do testow
-    this.products = [];
   }
 
   ngOnInit() {

@@ -12,8 +12,12 @@ export class HeaderComponent implements OnInit {
   registrationMenuLabel: string;
   basketMenuLabel: string;
   raportsLabel: string;
+  userType: string;
+  isGuestUser: boolean;
 
   constructor() {
+    //todo: do usuniecia
+    this.setData('UserType','user');
     this.homeMenuLabel = 'Strona główna';
     this.productsMenuLabel = 'Produkty';
     this.registrationMenuLabel = 'Logowanie';
@@ -22,6 +26,24 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userType = this.getData('UserType') as string;
+    console.log(this.userType);
+    this.isGuestUser = this.userType == null;
   }
 
+  setData(item: string, data: string) {
+    localStorage.setItem(item, data);
+  }
+
+  getData(item: string) {
+    return localStorage.getItem(item);
+  }
+
+  removeData(key: string) {
+    localStorage.removeItem(key);
+  }
+
+  get isAdmin() {
+    return this.userType == 'admin' ? true : false;
+  }
 }
