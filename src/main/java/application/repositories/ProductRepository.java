@@ -17,13 +17,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
                     "or a.last_name like %:param% " +
                     "or a.first_name || ' ' ||a.last_name like %:param% ";
 
-//    "SELECT * FROM Users u WHERE u.status = ?1"
 
-
-    @Query(
-            value = SEARCH_BY_PARAM,
-            nativeQuery = true)
+    @Query( value = SEARCH_BY_PARAM, nativeQuery = true)
     Iterable<Product> findProductsBySearchParam(@Param("param") String searchParam);
-
 
 }
