@@ -1,0 +1,58 @@
+<button type="submit" class="btn btn-info cancelButton" (click)="cancelSubmit()">Anuluj zamówienie</button>
+<div *ngIf="isCancelFlag">
+  <label class="card-title" style="color: red; font-style: italic;">Uwaga, Twoje zamówienie zostanie anulowane, czy potwierdzasz anulację</label>
+  <button type="submit" class="btn btn-info" style="margin-bottom: 1em;" (click)="cancel()">Potwierdzam</button>
+  <button type="submit" class="btn btn-info" style="margin-bottom: 1em;" (click)="returnToOrder()">Wróć do zamówienia</button>
+</div>
+
+<div *ngIf="!isCancelFlag" style="margin-bottom: 8em;">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Koszyk</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Twoje zamówienie:</h6>
+      <ul style="display: inline-block !important;">
+        <li *ngFor="let order of cart.orderPositions">
+          {{ order.product}} - {{ order.quantity}} szt.
+          <a class="close" [routerLink]="" (click)="deleteItemFromBasket(order.product)">&times;</a>
+        </li>
+      </ul>
+      <br>
+      <label class="card-title">
+        Podaj kod rabatowy:
+        <input style="color: gray;" type="text" maxLength="15" >
+      </label>
+      <button type="submit" [disabled]="false" class="btn btn-info">Przelicz rabat</button>
+      <h6 class="card-subtitle mb-2 text-muted margin">Suma zamówienia: {{orderSum}} zł</h6>
+    </div>
+  </div>
+
+
+  <!--Adres dostawy-->
+  <div class="card-body0">
+    <h5 class="card-title margin">Wprowadź adres dostawy:</h5>
+    <form>
+      <div class="form-group card-subtitle mb-2 text-muted">
+        <input type="checkbox"  name="isOtherAddress" value={{isOtherAddress}} (click)="onCheckboxChange()">
+        <label for="isOtherAddress">Inny adres dostawy</label>
+        <br>
+        <label for="street">Ulica</label>
+        <input class="form-control"  type="text" maxlength="255"
+               name="street" value={{street}} [readonly]="!isOtherAddress">
+        <label for="city">Miasto</label>
+        <input class="form-control" type="text" maxlength="255"
+               name="city" value={{city}} [readonly]="!isOtherAddress">
+        <label for="number">Numer domu/mieszkania</label>
+        <input class="form-control" type="text" maxlength="6"
+               name="number" pattern="[0-9]{2}-[0-9]{3}" value={{homeNumber}}
+               [readonly]="!isOtherAddress">
+        <label for="zipCode">Kod pocztowy</label>
+        <input class="form-control" type="text" maxlength="6"
+               name="zipCode" pattern="[0-9]{2}-[a-zA-Z]{2}" value={{zipCode}}
+               [readonly]="!isOtherAddress">
+      </div>
+    </form>
+  </div>
+  <button type="submit" [disabled]="true" class="btn btn-info submitButton">Zatwierdź zamówienie</button>
+</div>
+
+
