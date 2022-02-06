@@ -53,6 +53,7 @@ export class ClientFormComponent {
       this.clientService.save(this.client).subscribe(result => this.gotoClientList());
       this.authenticationService.register(this.client.email, this.client.email, this.client.password).subscribe();
       //TODO po rejestracji zmieniaj okno
+      //zapis danych do bazy
     }else {
       console.log('incorrect password');
     }
@@ -65,6 +66,7 @@ export class ClientFormComponent {
       this.tokenStorage.saveToken(data.accessToken);
       this.tokenStorage.saveUser(data);
       this.roles = this.tokenStorage.getUser().roles;
+      //storage data z bazy danych
     });
     }
 
