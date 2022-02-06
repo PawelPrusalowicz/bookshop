@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonToggleModule} from "@angular/material/button-toggle";
 import { ToastMessagesComponent } from './toast-messages/toast-messages.component';
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
 
 @NgModule({
@@ -29,7 +30,6 @@ import { ToastMessagesComponent } from './toast-messages/toast-messages.componen
     HeaderComponent,
     FooterComponent,
     ToastMessagesComponent,
-    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +39,7 @@ import { ToastMessagesComponent } from './toast-messages/toast-messages.componen
     NoopAnimationsModule,
     MatButtonToggleModule
   ],
-  providers: [UserService, ProductService, ClientService, CartService, authInterceptorProviders],
+  providers: [authInterceptorProviders, UserService, ProductService, ClientService, CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
