@@ -10,5 +10,4 @@ export class Client {
     loyaltyCard: boolean;
     newsletterAgreement: boolean;
     password: string;
-
 }

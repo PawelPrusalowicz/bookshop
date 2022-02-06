@@ -21,8 +21,11 @@ export class ClientFormComponent {
   popUpHeader : string;
   popUpBody : string;
   popUpStyle : string;
+
   //added for login, can be moved somewhere
   roles: string[] = [];
+  successfulReg: boolean;
+  successfulLogin: boolean;
   public selectedVal: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private clientService: ClientService, private authenticationService: AuthService, private tokenStorage: TokenStorageService) {
@@ -36,8 +39,11 @@ export class ClientFormComponent {
     this.popUpHeader = 'Unexpected Error';
     this.popUpStyle = 'Error';
     this.popUpBody = 'Unexpected error. Please contact with administrator';
+
     //added for login, can be moved somewhere
     this.roles = this.tokenStorage.getUser().roles;
+    this.successfulReg = false;
+    this.successfulLogin = false;
   }
 
   get isRegisterComponent() {
@@ -49,25 +55,42 @@ export class ClientFormComponent {
   }
 
   onSubmit() {
-    if(this.validation()) {
+    if (this.validation()) {
       this.clientService.save(this.client).subscribe(result => this.gotoClientList());
-      this.authenticationService.register(this.client.email, this.client.email, this.client.password).subscribe();
-      //TODO po rejestracji zmieniaj okno
-      //zapis danych do bazy
-    }else {
-      console.log('incorrect password');
+      this.authenticationService.register(this.client.email, this.client.email, this.client.password).subscribe(
+        data => {
+          this.successfulReg = true;
+        },
+      );
     }
-  }
+    else {
+      console.log('incorrect password');
+      this.successfulReg = false;
+    }
+
+    console.log(this.successfulReg);
+    if (this.successfulReg) {
+      this.setData('Client', this.client);
+      this.setData('UserType', 'user');
+      let clientJson = this.getData('Client') as string;
+      console.log(clientJson);
+    }
+    //TODO Add autologin
+}
 
   onLogin() {
     console.log('login');
     this.authenticationService.login(this.client.email, this.client.password).subscribe(
-    data => {
-      this.tokenStorage.saveToken(data.accessToken);
-      this.tokenStorage.saveUser(data);
-      this.roles = this.tokenStorage.getUser().roles;
-      //storage data z bazy danych
-    });
+      data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
+        this.roles = this.tokenStorage.getUser().roles;
+        this.successfulLogin = true;
+
+        this.clientService.search(this.client.email).subscribe(data => {
+        this.client = data;});
+      });
+    console.log(this.successfulLogin);
     }
 
   gotoClientList() {
@@ -97,6 +120,19 @@ export class ClientFormComponent {
 
   closePopUp(newItem: string) {
     this.isError = false;
+  }
+
+ setData(item: string, data: any) {
+  const jsonData = JSON.stringify(data);
+  localStorage.setItem(item, jsonData);
+  }
+
+  getData(item: string) {
+    return localStorage.getItem('Client');
+  }
+
+  removeData(key: string) {
+    localStorage.removeItem(key);
   }
 
 }

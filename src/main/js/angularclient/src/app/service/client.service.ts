@@ -19,4 +19,9 @@ export class ClientService {
   public save(client: Client) {
     return this.http.post<Client>(this.clientsUrl, client);
   }
+
+  public search(param : string): Observable<Client> {
+      let url = this.clientsUrl + "/search";
+      return this.http.post<Client>(url, param);
+  }
 }
