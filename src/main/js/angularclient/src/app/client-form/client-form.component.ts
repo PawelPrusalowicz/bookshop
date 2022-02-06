@@ -57,40 +57,41 @@ export class ClientFormComponent {
   onSubmit() {
     if (this.validation()) {
       this.clientService.save(this.client).subscribe(result => this.gotoClientList());
-      this.authenticationService.register(this.client.email, this.client.email, this.client.password).subscribe(
-        data => {
-          this.successfulReg = true;
-        },
-      );
+      this.authenticationService.register(this.client.email, this.client.email, this.client.password).subscribe(data => {
+      this.setData('Client', this.client);
+      this.setData('UserType', 'user');
+      let clientJson = this.getData('Client') as string;
+      console.log(clientJson);
+
+      this.authenticationService.login(this.client.email, this.client.password).subscribe(data => {
+      this.tokenStorage.saveToken(data.accessToken);
+      this.tokenStorage.saveUser(data);
+      this.roles = this.tokenStorage.getUser().roles;
+      });
+      });
     }
     else {
       console.log('incorrect password');
       this.successfulReg = false;
     }
-
-    console.log(this.successfulReg);
-    if (this.successfulReg) {
-      this.setData('Client', this.client);
-      this.setData('UserType', 'user');
-      let clientJson = this.getData('Client') as string;
-      console.log(clientJson);
-    }
-    //TODO Add autologin
 }
 
   onLogin() {
     console.log('login');
-    this.authenticationService.login(this.client.email, this.client.password).subscribe(
-      data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
-        this.roles = this.tokenStorage.getUser().roles;
-        this.successfulLogin = true;
+    this.authenticationService.login(this.client.email, this.client.password).subscribe(data => {
+    this.tokenStorage.saveToken(data.accessToken);
+    this.tokenStorage.saveUser(data);
+    this.roles = this.tokenStorage.getUser().roles;
 
-        this.clientService.search(this.client.email).subscribe(data => {
-        this.client = data;});
-      });
-    console.log(this.successfulLogin);
+    this.clientService.search(this.client.email).subscribe(data => {
+    this.client = data;});
+    this.tokenStorage.getUser().id
+
+    this.setData('Client', this.client);
+    this.setData('UserType', 'user'); // user type based on user id from user_role when endpoint is ready
+    let clientJson = this.getData('Client') as string;
+    console.log(clientJson);
+    });
     }
 
   gotoClientList() {
