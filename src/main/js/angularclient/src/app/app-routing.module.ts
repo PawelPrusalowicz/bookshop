@@ -4,14 +4,15 @@ import { UserListComponent } from './user-list/user-list.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { ClientFormComponent } from './client-form/client-form.component';
+import {CartComponent} from "./cart/cart.component";
 
 
 const routes: Routes = [
   { path: 'users', component: UserListComponent },
   { path: 'adduser', component: UserFormComponent },
   { path: 'addclient', component: ClientFormComponent },
-  { path: 'products', component: ProductListComponent }
-
+  { path: 'products', component: ProductListComponent },
+  { path: 'cart', component: CartComponent}
 ];
 
 @NgModule({

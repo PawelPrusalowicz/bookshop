@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonToggleModule} from "@angular/material/button-toggle";
 import { ToastMessagesComponent } from './toast-messages/toast-messages.component';
+import { CartComponent } from './cart/cart.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
 
@@ -30,6 +31,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     HeaderComponent,
     FooterComponent,
     ToastMessagesComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
