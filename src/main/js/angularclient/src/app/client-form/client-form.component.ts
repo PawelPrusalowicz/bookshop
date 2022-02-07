@@ -65,6 +65,7 @@ export class ClientFormComponent {
     if (this.validation()) {
       this.authenticationService.register(this.client.email, this.client.email, this.client.password).subscribe(data => {
 
+        console.log(this.client);
         this.setData('UserType', 'user');
 
         this.authenticationService.login(this.client.email, this.client.password).subscribe(data => {
@@ -73,13 +74,13 @@ export class ClientFormComponent {
           this.roles = this.tokenStorage.getUser().roles;
 
           this.client.address = this.address;
-          this.clientService.save(this.client).subscribe(result => this.gotoClientList());
+          this.clientService.save(this.client);
         });
+
       });
     }
     else {
       console.log('incorrect password');
-      //this.successfulReg = false;
     }
 }
 
@@ -95,6 +96,7 @@ export class ClientFormComponent {
         this.setData('Client', JSON.stringify(this.client));
         console.log(this.client);
         alert("Pomyślnie zalogowano");
+        window.location.reload();
       });
 
     });

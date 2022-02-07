@@ -1,5 +1,5 @@
 <app-toast-messages [openPopUp]="openPopUp" [header]="header" [body]="body" [style]="style" (closeModalEvent)="closePopUp($event)"></app-toast-messages>
-<button type="submit" class="btn btn-info cancelButton" (click)="cancelSubmit()">Anuluj zamówienie</button>
+<br>
 <div *ngIf="isCancelFlag">
   <label class="card-title" style="color: red; font-style: italic;">Uwaga, Twoje zamówienie zostanie anulowane, czy potwierdzasz anulację</label>
   <button type="submit" class="btn btn-info" style="margin-bottom: 1em;" (click)="cancel()">Potwierdzam</button>
@@ -19,8 +19,9 @@
       </ul>
       <br>
       <label class="card-title">
-        Podaj kod rabatowy:
+        Podaj kod rabatowy:&nbsp;
         <input style="color: gray;" type="text" maxLength="15" id="search">
+        &nbsp;&nbsp;
       </label>
       <button type="submit" [disabled]="false" class="btn btn-info" (click)="getDiscount()">Przelicz rabat</button>
       <h6 class="card-subtitle mb-2 text-muted margin">Suma zamówienia: {{orderSum}} zł</h6>
@@ -33,7 +34,7 @@
     <h5 class="card-title margin">Wprowadź adres dostawy:</h5>
     <form>
       <div class="form-group card-subtitle mb-2 text-muted">
-        <input type="checkbox"  name="isOtherAddress" value={{isOtherAddress}} (click)="onCheckboxChange()">
+        <input type="checkbox"  name="isOtherAddress" value={{isOtherAddress}} (click)="onCheckboxChange()">&nbsp;
         <label for="isOtherAddress">Inny adres dostawy</label>
         <br>
         <label for="street">Ulica</label>
@@ -56,6 +57,8 @@
     </form>
   </div>
   <button type="submit" [disabled]="isDisabledSubmit" class="btn btn-info submitButton" (click)="submitOrder()">Zatwierdź zamówienie</button>
+  <hr>
+  <button type="submit" class="btn btn-info cancelButton" (click)="cancelSubmit()">Anuluj zamówienie</button>
 </div>
 
 

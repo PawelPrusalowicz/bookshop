@@ -19,7 +19,7 @@ public class ProductController {
 
     @GetMapping("/products")
     public List<Product> getProducts() {
-        return (List<Product>) productRepository.findAll();
+        return (List<Product>) productRepository.findAllAvailable();
     }
 
     @PostMapping("/products/search")

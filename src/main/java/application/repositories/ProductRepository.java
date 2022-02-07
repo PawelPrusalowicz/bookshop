@@ -13,12 +13,20 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     String SEARCH_BY_PARAM = "select distinct p.* from products p " +
                     "join authors_products ap on p.product_id = ap.product_id " +
                     "join authors a on a.author_id = ap.author_id  " +
-                    "where p.title like %:param% " +
+                    "where (p.title like %:param% " +
                     "or a.last_name like %:param% " +
-                    "or a.first_name || ' ' ||a.last_name like %:param% ";
+                    "or a.first_name || ' ' ||a.last_name like %:param% )" +
+                    "and p.available_quantity > 0 ";
+
+
+    String SEARCH_ALL_AVAILABLE = "select distinct p.* from products p " +
+            "WHERE p.available_quantity > 0 ";
 
 
     @Query( value = SEARCH_BY_PARAM, nativeQuery = true)
     Iterable<Product> findProductsBySearchParam(@Param("param") String searchParam);
+
+    @Query( value = SEARCH_ALL_AVAILABLE, nativeQuery = true)
+    Iterable<Product> findAllAvailable();
 
 }

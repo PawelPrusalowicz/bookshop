@@ -6,6 +6,7 @@
     <li *ngIf="!isAdmin && !isGuestUser" class="list-inline-item"><a routerLink="/cart" class="btn btn-info">{{basketMenuLabel}}</a></li>
     <li *ngIf="isAdmin && !isGuestUser" class="list-inline-item"><a routerLink="/reports" class="btn btn-info">{{raportsLabel}}</a></li>
     <li *ngIf="!isAdmin && !isGuestUser" class="list-inline-item"><a routerLink="/history" class="btn btn-info">{{historyLabel}}</a></li>
+    <li *ngIf="showAdminBoard" class="list-inline-item"><a routerLink="/admin" class="btn btn-info">{{topSecretPanelLabel}}</a></li>
   </ul>
 </header>
 
