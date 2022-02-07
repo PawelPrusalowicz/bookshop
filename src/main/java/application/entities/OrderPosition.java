@@ -1,6 +1,7 @@
 package application.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,14 +33,9 @@ public class OrderPosition {
     private int quantity;
 
     @ManyToOne
-    @JoinColumn(name="cart_id")
-    @JsonBackReference(value="orderposition-cart")
-    @Transient
-    private Cart cart;
-
-    @ManyToOne
     @JoinColumn(name="product_id")
     @JsonBackReference(value="orderposition-product")
+//    @JsonManagedReference(value="orderposition-product")
     private Product product;
 
     @ManyToOne
@@ -48,13 +44,14 @@ public class OrderPosition {
     @Transient
     private Order order;
 
+    @ManyToOne
+    @JoinColumn(name="cart_id")
+    @JsonBackReference(value="orderposition-cart")
     @Transient
-    public double getTotalPrice() {
-        return product.getPrice() * quantity;
+    private Cart cart;
+
+    public String getProductTitle() {
+        return product.getTitle();
     }
 
-    @Transient
-    public Product getProduct() {
-        return product;
-    }
 }

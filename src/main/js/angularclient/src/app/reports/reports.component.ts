@@ -17,13 +17,6 @@ export class ReportsComponent implements OnInit {
 
   ngOnInit() {
 
-var number = 2453413.70;
-
-//#console.log(new Intl.NumberFormat('en-IN', { style: "currency", currency: "INR" }).format(number));
-//#if you dont want currency symbol, use it like this
-
-console.log(new Intl.NumberFormat('en-IN').format(number));
-console.log("OK");
     this.reportService.findAll().subscribe(data => {
       this.report = data;
     });

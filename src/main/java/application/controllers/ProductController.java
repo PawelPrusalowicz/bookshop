@@ -1,11 +1,7 @@
 package application.controllers;
 
-import application.entities.Client;
-import application.entities.Discount;
 import application.entities.Product;
-import application.repositories.ClientRepository;
 import application.repositories.ProductRepository;
-import application.repositories.DiscountRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

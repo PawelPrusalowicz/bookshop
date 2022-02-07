@@ -1,5 +1,6 @@
 package application.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,6 +41,7 @@ public class Product {
     private Date establishmentDate;
 
     @OneToMany(mappedBy="product")
+//    @JsonBackReference(value="orderposition-product")
     @JsonManagedReference(value="orderposition-product")
     private List<OrderPosition> orderPositions;
 

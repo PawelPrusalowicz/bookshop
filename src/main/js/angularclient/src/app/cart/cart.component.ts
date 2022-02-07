@@ -8,6 +8,7 @@ import {Order} from "../model/order";
 
 import { OrderService } from "../service/order.service";
 import { DiscountService } from "../service/discount.service";
+import { ClientService } from "../service/client.service";
 
 
 @Component({
@@ -39,30 +40,20 @@ export class CartComponent implements OnInit {
     }
     if (this.order.discount) {
       totalSum *= (1 - this.order.discount.percentage/100);
-      totalSum = Number.parseFloat(totalSum.toFixed(2));
     }
+    totalSum = Number.parseFloat(totalSum.toFixed(2));
     this.order.orderPrice = totalSum;
 
     return totalSum;
   }
 
-  constructor(private orderService: OrderService, private discountService: DiscountService) {
-    let cartJson = this.getData('Cart') as string;
-    this.cart = JSON.parse(cartJson);
+  constructor(private orderService: OrderService, private discountService: DiscountService, private clientService: ClientService) {
 
+    this.client = JSON.parse(this.getData('Client') as string);
+
+    this.cart = this.client.carts[0];
     this.order = new Order();
-
-
-    let cartJson = this.getData('Cart') as string;
-    this.cart = new Cart();
-    if(cartJson != null) {
-      this.cart = JSON.parse(cartJson);
-    }
-    let addressJSON = this.getData('Address') as string;
-    if(addressJSON != null) {
-      this.address = JSON.parse(addressJSON);
-      this.getAddressFromClient();
-    }
+    this.address = this.client.address;
 
     this.isOtherAddress = false;
     this.isCancelFlag = false;
@@ -77,10 +68,10 @@ export class CartComponent implements OnInit {
     this.cart.orderPositions.splice(index,1);
     this.setData('Cart', this.cart);
     if(this.cart.orderPositions.length == 0) {
-      alert("Hello\nHow are you?");
       this.handleOpenPopUp('Koszyk jest pusty', 'Wróć na stronę produkty, aby kontynuować zakupy', 'Information');
     }
-    console.log(this.getData('Cart'));
+    this.client.carts[0] = this.cart;
+    this.setData('Client', this.client);
   }
 
   onCheckboxChange() {
@@ -95,7 +86,13 @@ export class CartComponent implements OnInit {
   }
 
   cancel() {
-    //todo: usuniecie calego zamowienia i przekierowanie na strone glowna
+    this.cart = new Cart();
+    this.clientService.searchById(this.client.client_id).subscribe(data => {
+        this.client = data;
+        this.client.carts = [];
+        this.setData('Client', this.client);
+        console.log(this.client);
+      });
   }
 
   returnToOrder() {
@@ -116,11 +113,11 @@ export class CartComponent implements OnInit {
   }
 
   getAddressFromClient() {
-    this.street = this.address.street;
-    this.zipCode = this.address.postCode;
-    this.buildingNumber = this.address.buildingNo;
-    this.apartamentNumber = this.address.apartamentNo;
-    this.city = this.address.city;
+    this.street = this.client.address.street;
+    this.zipCode = this.client.address.postCode;
+    this.buildingNumber = this.client.address.buildingNo;
+    this.apartamentNumber = this.client.address.apartamentNo;
+    this.city = this.client.address.city;
   }
 
   getAddressForOrder() {
@@ -130,15 +127,27 @@ export class CartComponent implements OnInit {
     address.apartamentNo = this.apartamentNumber;
     address.buildingNo = this.buildingNumber;
     address.city = this.city;
+    address.country = "Polska";
     return address;
   }
 
   submitOrder() {
-    //adres do zamowienia:
     console.log(this.getAddressForOrder());
+
+    this.order.client = this.client;
+    this.order.creationTime = new Date();
+    this.order.status = 'Opłacone';
     this.order.orderPositions = this.cart.orderPositions;
     this.order.address = this.getAddressForOrder();
     this.orderService.save(this.order);
+    alert("Zamówienie zostało złożone");
+    this.cart = new Cart();
+    this.clientService.searchById(this.client.client_id).subscribe(data => {
+        this.client = data;
+        this.client.carts = [];
+        this.setData('Client', this.client);
+        console.log(this.client);
+      });
   }
 
   getDiscount() {

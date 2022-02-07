@@ -1,10 +1,10 @@
 export class Address {
 
-    addressId: string;
+    addressId: number;
     street: string;
     buildingNo: string;
     apartamentNo: string;
     city: string;
-    county: string;
+    country: string;
     postCode: string;
 }

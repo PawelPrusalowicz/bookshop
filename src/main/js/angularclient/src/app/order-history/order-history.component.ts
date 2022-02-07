@@ -13,10 +13,15 @@ export class OrderHistoryComponent implements OnInit {
   historyOrders : Order[];
 
   constructor() {
-
+      this.historyOrders = JSON.parse(localStorage.getItem('Client') as string).orders;
+      console.log(this.getData('Client') as string);
   }
 
   ngOnInit(): void {
+  }
+
+  getData(item: string) {
+    return localStorage.getItem(item);
   }
 
 }

@@ -44,12 +44,14 @@ export class ClientFormComponent {
     this.address = new Address();
     this.address.street = ' assa';
     this.address.buildingNo = ' asssa';
-    this.address.apartamentNo: ' assa';
+    this.address.apartamentNo = ' assa';
     this.address.city = ' assa';
     this.address.country = ' assa';
-    this.postCode = ' postcode';
+    this.address.postCode = ' postcode';
 
   }
+
+
 
   get isRegisterComponent() {
     return this.selectedVal == 'login' ? false : true;
@@ -62,25 +64,22 @@ export class ClientFormComponent {
   onSubmit() {
     if (this.validation()) {
       this.authenticationService.register(this.client.email, this.client.email, this.client.password).subscribe(data => {
-      this.setData('Client', this.client);
-      this.setData('UserType', 'user');
-      let clientJson = this.getData('Client') as string;
-      console.log("test");
-      console.log(clientJson);
 
-      this.authenticationService.login(this.client.email, this.client.password).subscribe(data => {
-      this.tokenStorage.saveToken(data.accessToken);
-      this.tokenStorage.saveUser(data);
-      this.roles = this.tokenStorage.getUser().roles;
+        this.setData('UserType', 'user');
 
-      this.client.address = this.address;
-      this.clientService.save(this.client).subscribe(result => this.gotoClientList());
-      });
+        this.authenticationService.login(this.client.email, this.client.password).subscribe(data => {
+          this.tokenStorage.saveToken(data.accessToken);
+          this.tokenStorage.saveUser(data);
+          this.roles = this.tokenStorage.getUser().roles;
+
+          this.client.address = this.address;
+          this.clientService.save(this.client).subscribe(result => this.gotoClientList());
+        });
       });
     }
     else {
       console.log('incorrect password');
-      this.successfulReg = false;
+      //this.successfulReg = false;
     }
 }
 
@@ -90,9 +89,14 @@ export class ClientFormComponent {
       this.tokenStorage.saveToken(data.accessToken);
       this.tokenStorage.saveUser(data);
       this.roles = this.tokenStorage.getUser().roles;
+      this.clientService.searchByLogin(this.client.email).subscribe(data => {
+        this.client = data;
+        this.client.carts = [];
+        this.setData('Client', JSON.stringify(this.client));
+        console.log(this.client);
+        alert("Pomyślnie zalogowano");
+      });
 
-      this.client = this.clientService.searchByLogin(this.client.email);
-      this.setData('Client', this.client);
     });
 
 
@@ -130,6 +134,7 @@ export class ClientFormComponent {
   setData(item: string, data: string) {
     localStorage.setItem(item, data);
   }
+
 
   getData(item: string) {
     return localStorage.getItem(item);

@@ -86,7 +86,7 @@ ALTER TABLE Products ADD CONSTRAINT products_pk PRIMARY KEY (product_id)
 CREATE TABLE Order_Positions
 (
   order_position_id serial NOT NULL,
-  quantity Integer NOT NULL,
+  quantity Integer NOT NULL CHECK (price >= 0),
   product_id Integer NOT NULL,
   cart_id Integer,
   order_id Integer
@@ -526,6 +526,27 @@ ALTER TABLE User_Roles
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 ;
+
+
+CREATE OR REPLACE TRIGGER order_positions_before_insert
+BEFORE INSERT
+   ON order_positions
+   FOR EACH ROW
+DECLARE
+   v_username varchar2(10);
+BEGIN
+
+   -- Find username of person performing INSERT into table
+   SELECT user INTO v_username
+   FROM dual;
+
+   -- Update create_date field to current system date
+   :new.create_date := sysdate;
+
+   -- Update created_by field to the username of the person performing the INSERT
+   :new.created_by := v_username;
+
+END;
 
 
 CREATE or replace FUNCTION monthly_earnings()

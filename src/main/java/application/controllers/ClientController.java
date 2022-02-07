@@ -27,7 +27,14 @@ public class ClientController {
     }
 
     @PostMapping("/clients/search")
-    public Client searchProductsByParam(@RequestBody String login) {
-        return clientRepository.findByLogin(login);
+    public Client searchByParam(@RequestBody String login) {
+        Client client =  clientRepository.findByLogin(login);
+        return client;
+    }
+
+    @PostMapping("/clients/search/id")
+    public Client searchClientById(@RequestBody Long id) {
+        Client client = clientRepository.findById(id).get();
+        return client;
     }
 }

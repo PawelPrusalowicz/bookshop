@@ -16,6 +16,7 @@ export class ProductListComponent implements OnInit {
 
   products: Product[];
 
+  client: Client;
   cart: Cart;
 
   total: number;
@@ -36,15 +37,20 @@ export class ProductListComponent implements OnInit {
       this.products = data;
     });
 
+    this.client = JSON.parse(localStorage.getItem('Client') as string);
     this.total = 0;
-    this.cart = new Cart();
-    this.cart.cart_id = 2;
-    this.cart.creation_date = new Date('2021-12-17T03:24:00');
-    this.cart.client = new Client();
-    this.cart.client.client_id = 1;
-    //todo: tutaj dodaje do storage:
 
-    this.setData('Cart', this.cart);
+    if (this.client.carts.length != 0) {
+      this.cart = this.client.carts[0];
+      console.log("saved cart used");
+    } else {
+      console.log("new cart used");
+      this.cart = new Cart();
+      this.cart.orderPositions = [];
+    }
+
+
+    //this.setData('Cart', this.cart);
   }
 
   searchProducts() {
@@ -66,7 +72,7 @@ export class ProductListComponent implements OnInit {
 
   addToCart(product: Product) {
     console.log(this.cart);
-    console.log(this.getData('Cart'));
+    //console.log(this.getData('Cart'));
     this.wasAddToCard = false;
       for (let orderPos of this.cart.orderPositions) {
           if (orderPos.product.product_id == product.product_id) {
@@ -74,6 +80,9 @@ export class ProductListComponent implements OnInit {
               for (let orderPos of this.cart.orderPositions) {
                 this.total += orderPos.quantity * orderPos.product.price;
               }
+              this.client.carts[0] = this.cart;
+              this.setData('Client', this.client);
+              alert("Dodano '" + product.title + "' do koszyka");
               return;
           }
       }
@@ -88,7 +97,9 @@ export class ProductListComponent implements OnInit {
       }
       this.wasAddToCard = true;
       //dodanie do storage po każdym dodaniu produktu
-      this.setData('Cart', this.cart);
+      this.client.carts[0] = this.cart;
+      this.setData('Client', this.client);
+      alert("Dodano '" + product.title + "' do koszyka");
   }
 
   makeOrder() {

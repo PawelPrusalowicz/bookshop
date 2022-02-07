@@ -1025,50 +1025,50 @@ values (5,
 
 
 insert into orders (creation_time, order_price, status, client_id, address_id )
-values (current_date - 60, 434.21, 'PAID', 1, 1);
+values (current_date - 60, 434.21, 'Opłacone', 1, 1);
 insert into order_positions (quantity, product_id, order_id)
 values (12, 2, 1);
 
 insert into orders (creation_time, order_price, status, client_id, address_id )
-values (current_date - 60, 334.11, 'PAID', 2, 1);
+values (current_date - 60, 334.11, 'Opłacone', 2, 1);
 insert into order_positions (quantity, product_id, order_id)
 values (31, 2, 2);
 
 insert into orders (creation_time, order_price, status, client_id, address_id )
-values (current_date - 60, 3234.11, 'PAID', 3, 1);
+values (current_date - 60, 3234.11, 'Opłacone', 3, 1);
 insert into order_positions (quantity, product_id, order_id)
 values (22, 2, 3);
 
 
 insert into orders (creation_time, order_price, status, client_id, address_id )
-values (current_date - 30, 304.11, 'PAID', 3, 1);
+values (current_date - 30, 304.11, 'Opłacone', 3, 1);
 insert into order_positions (quantity, product_id, order_id)
 values (45, 2, 4);
 
 
 insert into orders (creation_time, order_price, status, client_id, address_id )
-values (current_date - 30, 234.11, 'PAID', 4, 1);
+values (current_date - 30, 234.11, 'Opłacone', 4, 1);
 insert into order_positions (quantity, product_id, order_id)
 values (31, 2, 5);
 
 insert into orders (creation_time, order_price, status, client_id, address_id )
-values (current_date - 30, 314.11, 'PAID', 4, 1);
+values (current_date - 30, 314.11, 'Opłacone', 4, 1);
 insert into order_positions (quantity, product_id, order_id)
 values (46, 2, 6);
 
 
 insert into orders (creation_time, order_price, status, client_id, address_id )
-values (current_date , 24.11, 'PAID', 5, 1);
+values (current_date , 24.11, 'Opłacone', 5, 1);
 insert into order_positions (quantity, product_id, order_id)
 values (2, 1, 7);
 
 insert into orders (creation_time, order_price, status, client_id, address_id )
-values (current_date - 90, 234.11, 'PAID', 4, 1);
+values (current_date - 90, 234.11, 'Opłacone', 4, 1);
 insert into order_positions (quantity, product_id, order_id)
 values (31, 2, 8);
 
 insert into orders (creation_time, order_price, status, client_id, address_id )
-values (current_date - 90, 314.12, 'PAID', 4, 1);
+values (current_date - 90, 314.12, 'Opłacone', 4, 1);
 insert into order_positions (quantity, product_id, order_id)
 values (321, 3, 9);
 
@@ -1082,3 +1082,13 @@ values ('ap@wp.pl', '$2a$10$ygE.3SUS.k28MZoE3etMNO9fEA3T7ziLZVxf7V0ILsuOOtjlXILg
 
 insert into user_roles (user_id, role_id) values (1, 1);
 
+insert into users (email, password, username)
+values ('admin@wp.pl', '$2a$10$ygE.3SUS.k28MZoE3etMNO9fEA3T7ziLZVxf7V0ILsuOOtjlXILgm', 'admin@wp.pl');
+
+insert into user_roles (user_id, role_id) values (2, 2);
+
+
+insert into users (email, password, username)
+values ('admin2@wp.pl', '$2a$10$ygE.3SUS.k28MZoE3etMNO9fEA3T7ziLZVxf7V0ILsuOOtjlXILgm', 'admin2@wp.pl');
+
+insert into user_roles (user_id, role_id) values (3, 3);

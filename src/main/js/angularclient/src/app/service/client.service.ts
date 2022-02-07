@@ -25,4 +25,9 @@ export class ClientService {
     return this.http.post<Client>(url, param);
   }
 
+  public searchById(param : number): Observable<Client> {
+    let url = this.clientsUrl + "/search/id";
+    return this.http.post<Client>(url, param);
+  }
+
 }

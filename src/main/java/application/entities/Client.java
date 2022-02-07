@@ -31,7 +31,7 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int client_id;
+    private long client_id;
     private String firstName;
     private String lastName;
     private String companyName;
