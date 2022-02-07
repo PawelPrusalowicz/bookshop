@@ -79,7 +79,6 @@ export class ClientFormComponent {
     }
     else {
       console.log('incorrect password');
-      //this.successfulReg = false;
     }
 }
 
@@ -95,6 +94,7 @@ export class ClientFormComponent {
         this.setData('Client', JSON.stringify(this.client));
         console.log(this.client);
         alert("Pomyślnie zalogowano");
+        window.location.reload();
       });
 
     });
