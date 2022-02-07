@@ -92,6 +92,9 @@ CREATE TABLE Order_Positions
   order_id Integer
 );
 
+ALTER TABLE products
+ADD CONSTRAINT quantity_limit CHECK(available_quantity >= 0);
+
 
 CREATE INDEX idx_order_pos_product_id ON Order_Positions (product_id)
 ;
@@ -528,25 +531,19 @@ ALTER TABLE User_Roles
 ;
 
 
-CREATE OR REPLACE TRIGGER order_positions_before_insert
-BEFORE INSERT
-   ON order_positions
-   FOR EACH ROW
-DECLARE
-   v_username varchar2(10);
+CREATE OR REPLACE FUNCTION order_positions_before_insert() RETURNS TRIGGER AS
+$BODY$
 BEGIN
-
-   -- Find username of person performing INSERT into table
-   SELECT user INTO v_username
-   FROM dual;
-
-   -- Update create_date field to current system date
-   :new.create_date := sysdate;
-
-   -- Update created_by field to the username of the person performing the INSERT
-   :new.created_by := v_username;
-
+    UPDATE products SET available_quantity = available_quantity - new.quantity WHERE product_id = new.product_id;
+   	return new;
 END;
+$BODY$
+language plpgsql;
+
+CREATE TRIGGER trg_order_positions_before_insert
+ BEFORE INSERT ON order_positions
+ FOR EACH ROW
+ EXECUTE PROCEDURE order_positions_before_insert();
 
 
 CREATE or replace FUNCTION monthly_earnings()

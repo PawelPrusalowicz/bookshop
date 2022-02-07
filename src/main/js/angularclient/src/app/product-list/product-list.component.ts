@@ -76,6 +76,12 @@ export class ProductListComponent implements OnInit {
     this.wasAddToCard = false;
       for (let orderPos of this.cart.orderPositions) {
           if (orderPos.product.product_id == product.product_id) {
+
+              if (product.availableQuantity < orderPos.quantity + 1) {
+                  alert("Nie można dodać więcej produktów tego typu do koszyka");
+                  return;
+              }
+
               orderPos.quantity += 1;
               for (let orderPos of this.cart.orderPositions) {
                 this.total += orderPos.quantity * orderPos.product.price;
